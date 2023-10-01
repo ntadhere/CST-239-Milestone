@@ -10,6 +10,10 @@ package game;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/**
+ * Create an constant variable for number of kind item in inventory
+ * Using scanner and ArrayList to read user input and store data of each item respectively
+ */
 public class StoreFront
 {
 	static int ITEM_INVENTORY = 6; //constant variable
@@ -73,7 +77,7 @@ public class StoreFront
 	/**
 	 * This is determines user's interact with frontStore
 	 */
-	public void showMenu()
+	private void showMenu()
 	{
 		boolean exit = false;
 		while (exit != true)
@@ -117,6 +121,10 @@ public class StoreFront
 		}
 	}
 
+	/**
+	 * Main method to display welcome message and get all the code load
+	 * @param args this is automatic JAVA generation
+	 */
 	public static void main(String[] args)
 	{
 		System.out.println("--------------------------------------------");
