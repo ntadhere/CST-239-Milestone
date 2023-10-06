@@ -10,6 +10,7 @@ package game;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+
 /**
  * Create an constant variable for number of kind item in inventory
  * Using scanner and ArrayList to read user input and store data of each item respectively
@@ -18,7 +19,8 @@ public class StoreFront
 {
 	static int ITEM_INVENTORY = 6; //constant variable
 	static Scanner scan = new Scanner(System.in);
-	static ArrayList<Product> list = new ArrayList<Product>();
+	static Inventory inventory = new Inventory();
+	static ArrayList<Product> list = inventory.getList();
 
 
 	/**
@@ -28,33 +30,28 @@ public class StoreFront
 	// cart in future
 	public StoreFront()
 	{
-		// create 2 Weapon objects
-		Weapon gun = new Weapon("gun", "100-150 Damage", 125.00, 25);
-		Weapon bomb = new Weapon("bomb", "320-400 Damage", 400.00, 12);
-
-		// create 2 Armor objects
-		Armor shield = new Armor("shield", "900 Block", 450.00, 13);
-		Armor helmet = new Armor("helmet", "250 Block", 100.00, 20);
-
-		// create 2 Health objects
-		Health food = new Health("food", "Restores 1,000 HP", 500.00, 15);
-		Health drink = new Health("drink", "Restores 300 HP", 150.00, 14);
-
-		// Create an initial inventory with products
-		list.add(gun);
-		list.add(bomb);
-		list.add(shield);
-		list.add(helmet);
-		list.add(food);
-		list.add(drink);
+		
 
 	}
 
 	/**
 	 * able to purchase item from shopping cart. WILL UPDATE...
+	 * @throws CloneNotSupportedException 
 	 */
-	public static void purchase()
+	public static void purchase() throws CloneNotSupportedException
 	{
+		/*
+		 * take user input
+		 * sort the product in inventory
+		 * take a clone product from inventory
+		 * add a clone product to shopping cart
+		 * exit
+		 */
+		// take user input
+		int num = scan.nextInt();
+		int qty = scan.nextInt();
+		// sort the product in the inventory
+		System.out.println(inventory.remove(num,qty));
 		System.out.println("You successfully purchase the item from your Shopping Cart");
 		System.out.println("------------------------------------------------------------");
 		System.out.println("--------------RETURN BACK TO THE INVENTORY------------------");
@@ -65,9 +62,24 @@ public class StoreFront
 	/**
 	 * able to cancel item from shopping cart, return item back to inventory store.
 	 * WILL UPDATE..
+	 * @throws CloneNotSupportedException 
 	 */
-	public static void cancel()
+	public static void cancel() throws CloneNotSupportedException
 	{
+		/*
+		 * take user input
+		 * open shopping cart
+		 * sort the product
+		 * take a clone product from shopping cart
+		 * add a clone product to inventory
+		 * exit
+		 */
+		
+		// take user input
+		int num = scan.nextInt();
+		int qty = scan.nextInt();
+		// sort the product in the inventory
+		System.out.println(inventory.add(num,qty));
 		System.out.println("You successfully cancel the item from your Shopping Cart");
 		System.out.println("------------------------------------------------------------");
 		System.out.println("--------------RETURN BACK TO THE INVENTORY------------------");
@@ -76,12 +88,14 @@ public class StoreFront
 
 	/**
 	 * This is determines user's interact with frontStore
+	 * @throws CloneNotSupportedException 
 	 */
-	private void showMenu()
+	private void showMenu() throws CloneNotSupportedException
 	{
+		inventory.initialize();
 		boolean exit = false;
 		while (exit != true)
-		{
+		{	
 			for (int i = 1; i < list.size() + 1; i++)	// read an inventory list
 			{
 				System.out.println("---- item #" + i + " ----");
@@ -125,13 +139,13 @@ public class StoreFront
 	 * Main method to display welcome message and get all the code load
 	 * @param args this is automatic JAVA generation
 	 */
-	public static void main(String[] args)
+	public static void main(String[] args) throws CloneNotSupportedException
 	{
+		StoreFront store = new StoreFront();
 		System.out.println("--------------------------------------------");
 		System.out.println("----------- WELCOME TO UWU STORE -----------");
 		System.out.println("---In here you can find all what you need---");
 		System.out.println("--------------------------------------------");
-		StoreFront store = new StoreFront();
 		System.out.println("------------------------------");
 		System.out.println("There are " + ITEM_INVENTORY + " items in the Inventory");
 		System.out.println("------------------------------");

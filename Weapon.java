@@ -1,3 +1,4 @@
+package game;
 /**
  * Truong Anh Dao Nguyen
  * CST-239
@@ -6,7 +7,6 @@
  * This is my own work
  */
 
-package game;
 
 public class Weapon extends Product
 {
@@ -14,14 +14,14 @@ public class Weapon extends Product
 	/**
 	 * This is the non default constructor that takes all parameters.
 	 * 
-	 * @param n the name for Weapon
-	 * @param d the description for Weapon
-	 * @param p the price for Weapon
-	 * @param q the quantity for Weapon
+	 * @param name the name for Weapon
+	 * @param description the description for Weapon
+	 * @param price the price for Weapon
+	 * @param quantity the quantity for Weapon
 	 */
-	public Weapon(String n, String d, double p, int q)
+	public Weapon(String name, String description, double price, int quantity)
 	{
-		super(n, d, p, q);
+		super(name, description, price, quantity);
 		// TODO Auto-generated constructor stub
 	}
 

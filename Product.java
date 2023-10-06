@@ -1,3 +1,4 @@
+package game;
 /**
  * Truong Anh Dao Nguyen
  * CST-239
@@ -6,10 +7,9 @@
  * This is my own work
  */
 
-package game;
 
 //super class
-public abstract class Product
+public abstract class Product implements Cloneable
 {
 
 	// properties
@@ -26,14 +26,18 @@ public abstract class Product
 	 * @param price       the price of the product
 	 * @param quantity    the quantity of the product
 	 */
-	public Product(String n, String d, double p, int q)
+	public Product(String name, String description, double price, int quantity)
 	{
-		this.name = n;
-		this.description = d;
-		this.price = p;
-		this.quantity = q;
+		this.name = name;
+		this.description = description;
+		this.price = price;
+		this.quantity = quantity;
 	}
 
+	protected Object clone() throws CloneNotSupportedException
+	{
+		return super.clone();
+	}
 	// class methods
 	public void setQuantity(int x)
 	{

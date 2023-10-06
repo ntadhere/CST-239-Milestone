@@ -1,3 +1,4 @@
+package game;
 /**
  * Truong Anh Dao Nguyen
  * CST-239
@@ -6,7 +7,6 @@
  * This is my own work
  */
 
-package game;
 
 public class ShoppingCart
 {
