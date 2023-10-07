@@ -20,14 +20,13 @@ public class StoreFront
 	static int ITEM_INVENTORY = 6; //constant variable
 	static Scanner scan = new Scanner(System.in);
 	static Inventory inventory = new Inventory();
-	static ArrayList<Product> list = inventory.getList();
+	static ShoppingCart cart = new ShoppingCart();
+
 
 
 	/**
 	 * This is the non default constructor that takes all parameters
 	 */
-	// Will use to build relationship with salable product, inventory and shopping
-	// cart in future
 	public StoreFront()
 	{
 		
@@ -35,24 +34,23 @@ public class StoreFront
 	}
 
 	/**
-	 * able to purchase item from shopping cart. WILL UPDATE...
+	 * 
 	 * @throws CloneNotSupportedException 
 	 */
 	public static void purchase() throws CloneNotSupportedException
 	{
-		/*
-		 * take user input
-		 * sort the product in inventory
-		 * take a clone product from inventory
-		 * add a clone product to shopping cart
-		 * exit
-		 */
 		// take user input
+		System.out.println("Which item do you want to purchase?");
 		int num = scan.nextInt();
+		System.out.println("How many item do you want to purchase?");
 		int qty = scan.nextInt();
-		// sort the product in the inventory
-		System.out.println(inventory.remove(num,qty));
+		// sort and take the clone product in the inventory
+		Product temp = inventory.getProduct(num,qty);
+		// add a clone product to shopping cart
+		cart.addProduct(temp);
 		System.out.println("You successfully purchase the item from your Shopping Cart");
+		System.out.println("This is your shopping cart:");
+		cart.returnList();
 		System.out.println("------------------------------------------------------------");
 		System.out.println("--------------RETURN BACK TO THE INVENTORY------------------");
 		System.out.println("------------------------------------------------------------");
@@ -74,16 +72,6 @@ public class StoreFront
 		 * add a clone product to inventory
 		 * exit
 		 */
-		
-		// take user input
-		int num = scan.nextInt();
-		int qty = scan.nextInt();
-		// sort the product in the inventory
-		System.out.println(inventory.add(num,qty));
-		System.out.println("You successfully cancel the item from your Shopping Cart");
-		System.out.println("------------------------------------------------------------");
-		System.out.println("--------------RETURN BACK TO THE INVENTORY------------------");
-		System.out.println("------------------------------------------------------------");
 	}
 
 	/**
@@ -96,11 +84,7 @@ public class StoreFront
 		boolean exit = false;
 		while (exit != true)
 		{	
-			for (int i = 1; i < list.size() + 1; i++)	// read an inventory list
-			{
-				System.out.println("---- item #" + i + " ----");
-				System.out.println(list.get(i - 1));
-			}
+			inventory.returnList();
 			System.out.println("---- MAIN MENU -----");
 			System.out.println("Make a selection: ");
 			System.out.println("1. Purchase ");

@@ -18,14 +18,12 @@ public class Inventory implements Cloneable
 {
 	protected ArrayList<Product> inventory = new ArrayList<Product>();
 
-//	protected ArrayList<Product> product = (ArrayList<Product>)inventory.clone();
-	
-//	/**
-//	 * Override the protected clone method defined in the Object class, 
-//	 * and strengthen its accessibility
-//	 * @return
-//	 */
-//	@Override
+	/**
+	 * Override the protected clone method defined in the Object class, 
+	 * and strengthen its accessibility
+	 * @return
+	 */
+	@Override
 	protected Object clone() throws CloneNotSupportedException
 	{
 		return super.clone();
@@ -59,22 +57,13 @@ public class Inventory implements Cloneable
 		return inventory;
 	}
 	
-//	protected Object clone() throws CloneNotSupportedException
-//	{
-//		return super.clone();
-//	}
-	
-	public ArrayList<Product> getList() {
-		return inventory;
-	}
-	
 	/*-----------------------------
 	 * Remove method
 	 * ----------------------------
 	 */
-	public Product remove(int num, int qty) throws CloneNotSupportedException{
-		Product cloneP = inventory.get(num-=1);
-		Product temp = (Product)cloneP.clone();
+	public Product getProduct(int num, int qty) throws CloneNotSupportedException{
+		Product product = inventory.get(num-=1);
+		Product temp = (Product)product.clone();
 		temp.clone();
 		temp.setQuantity(qty);
 		temp.getQuantity();
@@ -85,18 +74,21 @@ public class Inventory implements Cloneable
 	 * adding method
 	 * ----------------------------
 	 */
-	public Product add(int num, int qty) throws CloneNotSupportedException{
-		Product cloneP = inventory.get(num-=1);
-		Product temp = (Product)cloneP.clone();
-		temp.clone();
-		temp.setQuantity(qty);
-		temp.getQuantity();
-		return temp;
-	}
+	
+	
 	/*-----------------------------
-	 * returning method
+	 * returning inventory method
 	 * ----------------------------
 	 */
+	public ArrayList<Product> returnList() {
+		for (int i = 1; i < inventory.size() + 1; i++)	// read an inventory list
+		{
+			System.out.println("---- item #" + i + " ----");
+			System.out.println(inventory.get(i - 1));
+		}
+		return inventory;
+	}
+	
 	
 	
 	
