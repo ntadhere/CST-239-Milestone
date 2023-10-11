@@ -7,9 +7,11 @@
  */
 package game;
 
+import java.util.*;
 
-import java.util.ArrayList;
-import java.lang.Cloneable;
+//import java.util.ArrayList;
+//import java.util.Collections;
+//import java.lang.Cloneable;
 
 /**
  * 
@@ -43,8 +45,8 @@ public class Inventory implements Cloneable
 		Product helmet = new Armor("helmet", "250 Block", 100.00, 20);
 
 		// create 2 Health objects
-		Product food = new Health("food", "Restores 1,000 HP", 500.00, 15);
-		Product drink = new Health("drink", "Restores 300 HP", 150.00, 14);
+		Product food = new Health("food", "500 HP", 500.00, 15);
+		Product drink = new Health("drink", "300 HP", 150.00, 14);
 
 		// Create an initial inventory with products
 		inventory.add(gun);
@@ -54,6 +56,7 @@ public class Inventory implements Cloneable
 		inventory.add(food);
 		inventory.add(drink);
 		
+		Collections.sort(inventory);
 		return inventory;
 	}
 	
@@ -74,6 +77,10 @@ public class Inventory implements Cloneable
 	 * adding method
 	 * ----------------------------
 	 */
+	public Product addProduct(Product another){
+		inventory.add(another);
+		return another;
+	}
 	
 	
 	/*-----------------------------

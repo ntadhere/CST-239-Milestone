@@ -1,4 +1,5 @@
 package game;
+
 /**
  * Truong Anh Dao Nguyen
  * CST-239
@@ -9,7 +10,7 @@ package game;
 
 
 //super class
-public abstract class Product implements Cloneable
+public abstract class Product implements Cloneable, Comparable<Product>
 {
 
 	// properties
@@ -34,6 +35,20 @@ public abstract class Product implements Cloneable
 		this.quantity = quantity;
 	}
 
+	// Override the compareTo method
+	public int compareTo(Product p)
+	{
+		int value = this.name.compareTo(p.name);
+		if (value == 0) 
+		{
+			return this.description.compareTo(p.description);
+		}
+		else
+		{
+			return value;
+		}
+	}
+	
 	protected Object clone() throws CloneNotSupportedException
 	{
 		return super.clone();
