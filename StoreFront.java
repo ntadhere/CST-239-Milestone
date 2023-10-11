@@ -1,15 +1,13 @@
 /**
  * Truong Anh Dao Nguyen
  * CST-239
- * 10/01/2023
- * This is my StoreFront for Milestone2
+ * 10/15/2023
+ * This is my StoreFront for Milestone 3
  * This is my own work
  */
 package game;
 
-import java.util.ArrayList;
 import java.util.Scanner;
-
 
 /**
  * Create an constant variable for number of kind item in inventory
@@ -40,6 +38,7 @@ public class StoreFront
 	public static void purchase() throws CloneNotSupportedException
 	{
 		// take user input
+		System.out.println("------------------------------------------------------------");
 		System.out.println("Which item do you want to purchase?");
 		int num = scan.nextInt();
 		System.out.println("How many item do you want to purchase?");
@@ -49,6 +48,7 @@ public class StoreFront
 		// add a clone product to shopping cart
 		cart.addProduct(temp);
 		System.out.println("You successfully purchase the item from your Shopping Cart");
+		System.out.println("------------------------------------------------------------");
 		System.out.println("This is your shopping cart:");
 		cart.returnList();
 		System.out.println("------------------------------------------------------------");
@@ -64,14 +64,25 @@ public class StoreFront
 	 */
 	public static void cancel() throws CloneNotSupportedException
 	{
-		/*
-		 * take user input
-		 * open shopping cart
-		 * sort the product
-		 * take a clone product from shopping cart
-		 * add a clone product to inventory
-		 * exit
-		 */
+		// take user input
+		System.out.println("------------------------------------------------------------");
+		System.out.println("This is your shopping cart:");
+		cart.returnList();
+		System.out.println("Which item do you want to cancel?");
+		int num = scan.nextInt();
+		System.out.println("How many item do you want to cancel?");
+		int qty = scan.nextInt();
+		// sort and take the clone product in the inventory
+		Product temp = inventory.getProduct(num,qty);
+		// add a clone product to shopping cart
+		cart.addProduct(temp);
+		System.out.println("You successfully cancel the item from your Shopping Cart");
+		System.out.println("This is your shopping cart:");
+		cart.returnList();
+		System.out.println("------------------------------------------------------------");
+		System.out.println("--------------RETURN BACK TO THE INVENTORY------------------");
+		System.out.println("------------------------------------------------------------");
+
 	}
 
 	/**

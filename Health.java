@@ -2,8 +2,8 @@ package game;
 /**
  * Truong Anh Dao Nguyen
  * CST-239
- * 10/01/2023
- * This is Health class for Milestone2
+ * 10/15/2023
+ * This is Health class for Milestone 3
  * This is my own work
  */
 

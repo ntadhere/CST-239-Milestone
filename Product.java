@@ -3,8 +3,8 @@ package game;
 /**
  * Truong Anh Dao Nguyen
  * CST-239
- * 10/01/2023
- * This is salable Product for Milestone2
+ * 10/15/2023
+ * This is salable Product for Milestone3
  * This is my own work
  */
 
@@ -35,13 +35,18 @@ public abstract class Product implements Cloneable, Comparable<Product>
 		this.quantity = quantity;
 	}
 
-	// Override the compareTo method
+	/**
+	 * Override comparable method to sort Product by name and price
+	 */
 	public int compareTo(Product p)
 	{
 		int value = this.name.compareTo(p.name);
 		if (value == 0) 
 		{
-			return this.description.compareTo(p.description);
+			Double obj1= this.price;
+			Double obj2= p.price;
+			int compareValue=obj1.compareTo(obj2);
+			return compareValue;
 		}
 		else
 		{

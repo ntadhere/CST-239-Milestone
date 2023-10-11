@@ -1,17 +1,13 @@
 /**
  * Truong Anh Dao Nguyen
  * CST-239
- * 10/01/2023
- * This is Inventory manager for Milestone2
+ * 10/15/2023
+ * This is Inventory manager for Milestone 3
  * This is my own work
  */
 package game;
 
 import java.util.*;
-
-//import java.util.ArrayList;
-//import java.util.Collections;
-//import java.lang.Cloneable;
 
 /**
  * 
@@ -39,18 +35,17 @@ public class Inventory implements Cloneable
 	public ArrayList<Product> initialize() {
 		// create 2 Weapon objects
 		Product gun = new Weapon("gun", "100-150 Damage", 125.00, 25);
-		Product bomb = new Weapon("bomb", "320-400 Damage", 400.00, 12);
+		Product gun1 = new Weapon("gun", "100-150 Damage", 100.00, 25);
 		// create 2 Armor objects
 		Product shield = new Armor("shield", "900 Block", 450.00, 13);
 		Product helmet = new Armor("helmet", "250 Block", 100.00, 20);
-
 		// create 2 Health objects
 		Product food = new Health("food", "500 HP", 500.00, 15);
 		Product drink = new Health("drink", "300 HP", 150.00, 14);
 
 		// Create an initial inventory with products
 		inventory.add(gun);
-		inventory.add(bomb);
+		inventory.add(gun1);
 		inventory.add(shield);
 		inventory.add(helmet);
 		inventory.add(food);

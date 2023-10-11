@@ -5,8 +5,8 @@ import java.util.ArrayList;
 /**
  * Truong Anh Dao Nguyen
  * CST-239
- * 10/01/2023
- * This is ShoppingCart class for Milestone2
+ * 10/15/2023
+ * This is ShoppingCart class for Milestone 3
  * This is my own work
  */
 
@@ -28,7 +28,7 @@ public class ShoppingCart
 	 * adding method
 	 * ----------------------------
 	 */
-	public Product addProduct(Product another) throws CloneNotSupportedException{
+	public Product addProduct(Product another){
 		shopCart.add(another);
 		return another;
 	}
@@ -38,6 +38,12 @@ public class ShoppingCart
 	 * Remove method
 	 * ----------------------------
 	 */
+	public Product getProduct(int num, int qty){
+		Product temp = shopCart.get(num-=1);
+		temp.setQuantity(qty);
+		temp.getQuantity();
+		return temp;
+	}
 	
 	public void returnList() {
 		for (int i = 1; i < shopCart.size() + 1; i++)	// read an inventory list
