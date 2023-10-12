@@ -37,7 +37,6 @@ public class Inventory implements Cloneable
 		ArrayList<Product> inventory = new ArrayList<Product>();
 		// create 2 Weapon objects
 		Product gun = new Weapon("gun", "100 Damage", 125.00, 25);
-		Product gun1 = new Weapon("gun", "50 Damage", 100.00, 25);		
 		Product bomb = new Weapon("bomb", "150 Damage", 175.00, 25);
 		// create 2 Armor objects
 		Product shield = new Armor("shield", "900 Block", 450.00, 13);
@@ -48,7 +47,6 @@ public class Inventory implements Cloneable
 
 		// Create an initial inventory with products
 		inventory.add(gun);
-		inventory.add(gun1);
 		inventory.add(bomb);
 		inventory.add(shield);
 		inventory.add(helmet);
@@ -74,7 +72,7 @@ public class Inventory implements Cloneable
 		// read through the inventory ArrayList
 		while (item < inventory.size())
 		{
-			int compare = name.compareTo(inventory.get(item).getName());
+			int compare = name.compareToIgnoreCase(inventory.get(item).getName());
 			
 			// check if the name of Product in list match with the name we looking for
 			if (compare == 0) 
@@ -115,7 +113,7 @@ public class Inventory implements Cloneable
 		{
 			
 			// check if the name of Product in list match with the name we looking for
-			int compare = another.getName().compareTo(inventory.get(item).getName());
+			int compare = another.getName().compareToIgnoreCase(inventory.get(item).getName());
 			if (compare == 0) 
 			{
 				// if it is matched

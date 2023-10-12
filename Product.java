@@ -41,7 +41,7 @@ public abstract class Product implements Cloneable, Comparable<Product>
 	 */
 	public int compareTo(Product p)
 	{
-		int value = this.name.compareTo(p.name);
+		int value = this.name.compareToIgnoreCase(p.name);
 		if (value == 0) 
 		{
 			Double obj1= this.price;

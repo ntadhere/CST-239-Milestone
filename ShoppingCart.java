@@ -54,7 +54,7 @@ public class ShoppingCart
 		int item = 0;
 		while (item < shopCart.size())
 		{
-			int compare = name.compareTo(shopCart.get(item).getName());
+			int compare = name.compareToIgnoreCase(shopCart.get(item).getName());
 			if (compare == 0) 
 			{
 				Product product = shopCart.get(item);
