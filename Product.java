@@ -1,5 +1,3 @@
-package game;
-
 /**
  * Truong Anh Dao Nguyen
  * CST-239
@@ -8,8 +6,11 @@ package game;
  * This is my own work
  */
 
+package game;
 
-//super class
+/**
+ * This is an abstract Salable Product class of StoreFront
+ */
 public abstract class Product implements Cloneable, Comparable<Product>
 {
 
@@ -67,16 +68,6 @@ public abstract class Product implements Cloneable, Comparable<Product>
 	public String getName()
 	{
 		return name;
-	}
-
-	public String getDescription()
-	{
-		return description;
-	}
-
-	public double getPrice()
-	{
-		return price;
 	}
 
 	public int getQuantity()
