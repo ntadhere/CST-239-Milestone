@@ -15,9 +15,11 @@ import java.util.*;
 public class Inventory implements Cloneable
 {
 	ArrayList<Product> inventory = initialize();
+
 	/**
-	 * Override the protected clone method defined in the Object class, 
-	 * and strengthen its accessibility
+	 * Override the protected clone method defined in the Object class, and
+	 * strengthen its accessibility
+	 * 
 	 * @return
 	 */
 	@Override
@@ -25,15 +27,15 @@ public class Inventory implements Cloneable
 	{
 		return super.clone();
 	}
-	
-	
+
 	/**
-	 * this is a non-default constructor use to initialize the inventory
-	 * declare and initialize list of available Salable Product
-	 * list is sort by name and price
+	 * this is a non-default constructor use to initialize the inventory declare and
+	 * initialize list of available Salable Product list is sort by name and price
+	 * 
 	 * @return the ArrayList of Product named inventory
 	 */
-	public ArrayList<Product> initialize() {
+	public ArrayList<Product> initialize()
+	{
 		ArrayList<Product> inventory = new ArrayList<Product>();
 		// create 2 Weapon objects
 		Product gun = new Weapon("gun", "100 Damage", 125.00, 25);
@@ -52,104 +54,130 @@ public class Inventory implements Cloneable
 		inventory.add(helmet);
 		inventory.add(food);
 		inventory.add(drink);
-		
+
 		Collections.sort(inventory);
 		return inventory;
 	}
-	
+
 	/**
 	 * This is determine the getProduct method of Inventory
-	 * @param name is a name of product 
-	 * @param qty is a quantity of chosen product
+	 * 
+	 * @param name is a name of product
+	 * @param qty  is a quantity of chosen product
 	 * @return temp is a clone product
 	 * @throws CloneNotSupportedException
 	 */
 	public Product getProduct(String name, int qty) throws CloneNotSupportedException
 	{
+		boolean hasError = false;
+		boolean found = false;
 		Product temp = null;
 		int item = 0;
-		
+
 		// read through the inventory ArrayList
-		while (item < inventory.size())
+		while (item < inventory.size() && found == false && hasError == false)
 		{
-			int compare = name.compareToIgnoreCase(inventory.get(item).getName());
-			
 			// check if the name of Product in list match with the name we looking for
-			if (compare == 0) 
+			int compare = name.compareToIgnoreCase(inventory.get(item).getName());
+			// if the name is matched
+			if (compare == 0)
 			{
-				// if it is matched
-				// create a clone product to transfer to Shopping cart
 				Product product = inventory.get(item);
-				temp = (Product)product.clone();
-				temp.clone();
-				temp.setQuantity(qty);
-				temp.getQuantity();
-				
-				// then adjust the property of that product in Inventory
-				product.setQuantity(product.getQuantity()-qty);
-				item += inventory.size();
+				// check if inventory have enough product user need
+				if (product.getQuantity() < qty) // if they don't
+				{
+					System.out.println("ERROR: BAD NUMBER, INVENTORY DOES NOT HAVE ENOUGH TO PURCHASE ");
+					hasError = true;
+				} 
+				else // if they do
+				{
+					// create a clone product to transfer to Shopping cart
+					temp = (Product) product.clone();
+					temp.clone();
+					temp.setQuantity(qty);
+					temp.getQuantity();
+
+					// then adjust the property of that product in Inventory
+					product.setQuantity(product.getQuantity() - qty);
+					found = true;
+				}
 			}
-			
-			// if it is not match
+
+			// if the name is not match
 			// continually read through the inventory ArrayList
 			else
 			{
-				item +=1;
+				item += 1;
 			}
 		}
-		return temp;	
+		
+		// After check through the array list
+		// If there is no product in inventory match name of product want add
+		// display an error message
+		if (item == inventory.size())
+		{
+			System.out.println("ERROR: PRODUCT IS NOT FOUND");
+		}
+		return temp;
 	}
-	
+
+	public Product checkFlag(String name, int qty)
+	{
+		Product temp = null;
+		return temp;
+	}
+
 	/**
 	 * This is determine the addProdcut method of Inventory
+	 * 
 	 * @param another is a Salable Product need to clarify
 	 * @return the same product
 	 */
-	public Product addProduct(Product another){
-		
+	public Product addProduct(Product another)
+	{
+
 		// read through the inventory ArrayList
 		int item = 0;
 		while (item < inventory.size())
 		{
-			
+
 			// check if the name of Product in list match with the name we looking for
 			int compare = another.getName().compareToIgnoreCase(inventory.get(item).getName());
-			if (compare == 0) 
+			if (compare == 0)
 			{
 				// if it is matched
 				// add the desired Salable Product back to inventory
 				// by adjust the quantity of that Salable Product
-				inventory.get(item).setQuantity(
-						inventory.get(item).getQuantity()+another.getQuantity());
+				inventory.get(item).setQuantity(inventory.get(item).getQuantity() + another.getQuantity());
 				item += inventory.size();
 			}
-			
+
 			// if it is not match
 			// continually read through the inventory ArrayList
 			else
 			{
-				item +=1;
+				item += 1;
 			}
 		}
 		return another;
 	}
-	
-	
+
 	/**
 	 * This is determined as returning method for inventory ArrayList
-	 * @return the inventory ArrayList 
+	 * 
+	 * @return the inventory ArrayList
 	 */
-	public ArrayList<Product> returnList() {
-		for (int i = 1; i < inventory.size() + 1; i++)	// read an inventory list
+	public ArrayList<Product> returnList()
+	{
+		// return the shopping cart
+		System.out.println("----------------------------");
+		System.out.println("THIS IS THE INVENTORY:");
+		for (int i = 1; i < inventory.size() + 1; i++) // read an inventory list
 		{
 			System.out.println("---- item #" + i + " ----");
 			System.out.println(inventory.get(i - 1));
 		}
 		return inventory;
 	}
-	
-	
-	
-	
-}
 
+}
