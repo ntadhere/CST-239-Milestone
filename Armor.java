@@ -1,4 +1,3 @@
-package game;
 /**
  * Truong Anh Dao Nguyen
  * CST-239
@@ -7,7 +6,11 @@ package game;
  * This is my own work
  */
 
+package game;
 
+/**
+ * Armor class is inherited from Product abstract class
+ */
 public class Armor extends Product
 {
 

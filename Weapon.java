@@ -1,4 +1,3 @@
-package game;
 /**
  * Truong Anh Dao Nguyen
  * CST-239
@@ -6,8 +5,12 @@ package game;
  * This is Weapon class for Milestone 3
  * This is my own work
  */
+package game;
 
 
+/**
+ * Weapon class is inherited from Product abstract class
+ */
 public class Weapon extends Product
 {
 

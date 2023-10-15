@@ -25,7 +25,7 @@ public class StoreFront
 	 * input name and quantity then remove Product from Inventory to add to
 	 * ShoppingCart
 	 * 
-	 * @throws CloneNotSupportedException
+	 * @throws CloneNotSupportedException throw this exception to indicate that an object could not or should not be cloned.
 	 */
 	public static void purchase() throws CloneNotSupportedException
 	{
@@ -57,7 +57,7 @@ public class StoreFront
 	 * input name and quantity then remove Product from ShoppingCart to add back to
 	 * Inventory
 	 * 
-	 * @throws CloneNotSupportedException
+	 * @throws CloneNotSupportedException throw this exception to indicate that an object could not or should not be cloned.
 	 */
 	public static void cancel() throws CloneNotSupportedException
 	{
@@ -85,7 +85,7 @@ public class StoreFront
 	 * This is a non-default constructor take user input from the keyboard and
 	 * display appropriate feedback on the console
 	 * 
-	 * @throws CloneNotSupportedException
+	 * @throws CloneNotSupportedException throw this exception to indicate that an object could not or should not be cloned.
 	 */
 	private void showMenu() throws CloneNotSupportedException
 	{
@@ -143,8 +143,10 @@ public class StoreFront
 	 * Main method to display welcome message and get all the code load
 	 * 
 	 * @param args this is automatic JAVA generation
+	 * @throws CloneNotSupportedException throw this exception to indicate that an object could not or should not be cloned.
+
 	 */
-	public static void main(String[] args) throws CloneNotSupportedException
+	public static void main(String[] args) throws CloneNotSupportedException 
 	{
 		StoreFront store = new StoreFront();
 		System.out.println("--------------------------------------------");
@@ -152,6 +154,7 @@ public class StoreFront
 		System.out.println("---In here you can find all what you need---");
 		System.out.println("--------------------------------------------");
 		inventory.initialize(); // initialize list of Salable Product in Inventory list
+		cart.initialize(); // initialize list of Salable Product in Inventory list
 		store.showMenu();
 	}
 

@@ -65,7 +65,7 @@ public class Inventory implements Cloneable
 	 * @param name is a name of product
 	 * @param qty  is a quantity of chosen product
 	 * @return temp is a clone product
-	 * @throws CloneNotSupportedException
+	 * @throws CloneNotSupportedException throw this exception to indicate that an object could not or should not be cloned.
 	 */
 	public Product getProduct(String name, int qty) throws CloneNotSupportedException
 	{
@@ -88,8 +88,7 @@ public class Inventory implements Cloneable
 				{
 					System.out.println("ERROR: BAD NUMBER, INVENTORY DOES NOT HAVE ENOUGH TO PURCHASE ");
 					hasError = true;
-				} 
-				else // if they do
+				} else // if they do
 				{
 					// create a clone product to transfer to Shopping cart
 					temp = (Product) product.clone();
@@ -110,7 +109,7 @@ public class Inventory implements Cloneable
 				item += 1;
 			}
 		}
-		
+
 		// After check through the array list
 		// If there is no product in inventory match name of product want add
 		// display an error message
@@ -118,12 +117,6 @@ public class Inventory implements Cloneable
 		{
 			System.out.println("ERROR: PRODUCT IS NOT FOUND");
 		}
-		return temp;
-	}
-
-	public Product checkFlag(String name, int qty)
-	{
-		Product temp = null;
 		return temp;
 	}
 

@@ -32,7 +32,7 @@ public class ShoppingCart
 
 	/**
 	 * This is determined as adding method for Shopping Cart It is used when the
-	 * puchase method of StoreFront been called
+	 * Purchase method of StoreFront been called
 	 * 
 	 * @param another is a chosen Salable Product
 	 * @return the another Salable Product
@@ -80,7 +80,7 @@ public class ShoppingCart
 	 * @param name is a name of product
 	 * @param qty  is a quantity of chosen product
 	 * @return temp is a clone product
-	 * @throws CloneNotSupportedException
+	 * @throws CloneNotSupportedException throw this exception to indicate that an object could not or should not be cloned.
 	 */
 	public Product getProduct(String name, int qty) throws CloneNotSupportedException
 	{
@@ -138,7 +138,7 @@ public class ShoppingCart
 	/**
 	 * This is determined as returning method for Shopping Cart ArrayList
 	 * 
-	 * @return the inventory ArrayList
+	 * @return the shopping cart ArrayList
 	 */
 	public ArrayList<Product> returnList()
 	{
@@ -162,7 +162,11 @@ public class ShoppingCart
 		}
 		return shopCart;
 	}
-
+	
+	/**
+	 * This is determined as empty method for the Shopping Cart when check out
+	 * @return the shopping cart ArrayList
+	 */
 	public ArrayList<Product> emptyCart()
 	{
 		shopCart.removeAll(shopCart);

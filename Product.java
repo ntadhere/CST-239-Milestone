@@ -2,7 +2,7 @@
  * Truong Anh Dao Nguyen
  * CST-239
  * 10/15/2023
- * This is salable Product for Milestone3
+ * This is salable Product for Milestone 3
  * This is my own work
  */
 
@@ -37,39 +37,50 @@ public abstract class Product implements Cloneable, Comparable<Product>
 	}
 
 	/**
-	 * Override comparable method to sort Product by name and price
+	 * Override comparable interface to sort Product by name and price
 	 */
-	public int compareTo(Product p)
+	public int compareTo(Product another)
 	{
-		int value = this.name.compareToIgnoreCase(p.name);
-		if (value == 0) 
+		int value = this.name.compareToIgnoreCase(another.name);
+		if (value == 0)
 		{
-			Double obj1= this.price;
-			Double obj2= p.price;
-			int compareValue=obj1.compareTo(obj2);
+			Double obj1 = this.price;
+			Double obj2 = another.price;
+			int compareValue = obj1.compareTo(obj2);
 			return compareValue;
-		}
-		else
+		} else
 		{
 			return value;
 		}
 	}
-	
+
 	protected Object clone() throws CloneNotSupportedException
 	{
 		return super.clone();
 	}
-	// class methods
-	public void setQuantity(int x)
+
+	/**
+	 * This is determined as set quantity method for Product class
+	 * @param qty is quantity of product
+	 */
+	public void setQuantity(int qty)
 	{
-		this.quantity = x;
+		this.quantity = qty;
 	}
 
+	/**
+	 * This is determined as get name method for Product class
+	 * @return name of that Product
+	 */
 	public String getName()
 	{
 		return name;
 	}
 
+	/**
+	 * This is determined as get quantity method for Product class
+	 * @return quantity of that Product
+	 */
 	public int getQuantity()
 	{
 		return quantity;
