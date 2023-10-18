@@ -112,11 +112,34 @@ public class StoreFront
 			switch (choice)
 			{
 			case 1:
-				inventory.returnList();
+				System.out.println("----------------------------");
+				System.out.println("THIS IS THE INVENTORY:");
+				// return the shopping cart
+				for (int i = 1; i < inventory.returnList().size() + 1; i++) // read an inventory list
+				{
+					System.out.println("---- item #" + i + " ----");
+					System.out.println(inventory.returnList().get(i - 1));
+				}
 				exit = false;
 				break;
 			case 2:
-				cart.returnList();
+				// check if the shopping cart is empty or not
+				if (cart.returnList().size() < 1)
+				{
+					System.out.println("----------------------------");
+					System.out.println("YOUR SHOPPING CART IS EMPTY");
+					System.out.println("----------------------------");
+				}
+				else
+				{
+					System.out.println("----------------------------");
+					System.out.println("YOUR SHOPPING CART:");
+					for (int i = 1; i < cart.returnList().size() + 1; i++) // read an inventory list
+					{
+						System.out.println("---- item #" + i + " ----");
+						System.out.println(cart.returnList().get(i - 1));
+					}
+				}
 				exit = false;
 				break;
 			case 3:

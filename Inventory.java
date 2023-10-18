@@ -162,14 +162,6 @@ public class Inventory implements Cloneable
 	 */
 	public ArrayList<Product> returnList()
 	{
-		// return the shopping cart
-		System.out.println("----------------------------");
-		System.out.println("THIS IS THE INVENTORY:");
-		for (int i = 1; i < inventory.size() + 1; i++) // read an inventory list
-		{
-			System.out.println("---- item #" + i + " ----");
-			System.out.println(inventory.get(i - 1));
-		}
 		return inventory;
 	}
 
