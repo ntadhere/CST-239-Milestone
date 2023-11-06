@@ -1,8 +1,8 @@
 /**
  * Truong Anh Dao Nguyen
  * CST-239
- * 10/15/2023
- * This is Armor class for Milestone 3
+ * 11/05/2023
+ * This is Inventory manager for Milestone 4
  * This is my own work
  */
 
@@ -13,6 +13,10 @@ package game;
  */
 public class Armor extends Product
 {
+	public Armor()
+	{
+		super();
+	}
 
 	/**
 	 * This is the non default constructor that takes all parameters.

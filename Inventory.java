@@ -1,8 +1,8 @@
 /**
  * Truong Anh Dao Nguyen
  * CST-239
- * 10/15/2023
- * This is Inventory manager for Milestone 3
+ * 11/05/2023
+ * This is Inventory manager for Milestone 4
  * This is my own work
  */
 package game;
@@ -14,6 +14,7 @@ import java.util.*;
  */
 public class Inventory implements Cloneable
 {
+	FileService file = new FileService();
 	ArrayList<Product> inventory = initialize();
 
 	/**
@@ -56,6 +57,7 @@ public class Inventory implements Cloneable
 		inventory.add(drink);
 
 		Collections.sort(inventory);
+		file.useFile(inventory);
 		return inventory;
 	}
 
@@ -117,6 +119,7 @@ public class Inventory implements Cloneable
 		{
 			System.out.println("ERROR: PRODUCT IS NOT FOUND");
 		}
+		file.useFile(inventory);
 		return temp;
 	}
 
@@ -152,6 +155,7 @@ public class Inventory implements Cloneable
 				item += 1;
 			}
 		}
+		file.useFile(inventory);
 		return another;
 	}
 
@@ -162,6 +166,7 @@ public class Inventory implements Cloneable
 	 */
 	public ArrayList<Product> returnList()
 	{
+		file.useFile(inventory);
 		return inventory;
 	}
 

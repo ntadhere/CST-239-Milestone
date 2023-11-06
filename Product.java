@@ -1,13 +1,33 @@
 /**
  * Truong Anh Dao Nguyen
  * CST-239
- * 10/15/2023
- * This is salable Product for Milestone 3
+ * 11/05/2023
+ * This is Inventory manager for Milestone 4
  * This is my own work
  */
 
 package game;
 
+import com.fasterxml.jackson.annotation.JsonSubTypes;
+import com.fasterxml.jackson.annotation.JsonSubTypes.Type;
+import com.fasterxml.jackson.annotation.JsonTypeInfo;
+
+// Jackson Type Info for all Sub-Classes of a Car
+// Maps the type field to the Sub-Class types
+@JsonTypeInfo
+(
+		use = JsonTypeInfo.Id.NAME,
+		include = JsonTypeInfo.As.PROPERTY,
+		property = "type"
+)
+@JsonSubTypes
+(
+		{
+			@Type(value = Weapon.class, name = "weapon"),
+			@Type(value = Armor.class, name = "armor"),
+			@Type(value = Health.class, name = "health"),
+		}
+)
 /**
  * This is an abstract Salable Product class of StoreFront
  */
@@ -15,11 +35,18 @@ public abstract class Product implements Cloneable, Comparable<Product>
 {
 
 	// properties
-	private String name = "";
-	private String description = "";
-	private double price = 0.00;
-	private int quantity = 0;
+	private String name;
+	private String description;
+	private double price;
+	private int quantity;
 
+	public Product()
+	{
+		name = "";
+		description = "";
+		price = 0.00;
+		quantity = 0;
+	}
 	/**
 	 * This is the non default constructor that takes all parameters.
 	 * 
@@ -33,6 +60,46 @@ public abstract class Product implements Cloneable, Comparable<Product>
 		this.name = name;
 		this.description = description;
 		this.price = price;
+		this.quantity = quantity;
+	}
+
+	public String getName()
+	{
+		return name;
+	}
+
+	public void setName(String name)
+	{
+		this.name = name;
+	}
+
+	public String getDescription()
+	{
+		return description;
+	}
+
+	public void setDescription(String description)
+	{
+		this.description = description;
+	}
+
+	public double getPrice()
+	{
+		return price;
+	}
+
+	public void setPrice(double price)
+	{
+		this.price = price;
+	}
+
+	public int getQuantity()
+	{
+		return quantity;
+	}
+
+	public void setQuantity(int quantity)
+	{
 		this.quantity = quantity;
 	}
 
@@ -57,33 +124,6 @@ public abstract class Product implements Cloneable, Comparable<Product>
 	protected Object clone() throws CloneNotSupportedException
 	{
 		return super.clone();
-	}
-
-	/**
-	 * This is determined as set quantity method for Product class
-	 * @param qty is quantity of product
-	 */
-	public void setQuantity(int qty)
-	{
-		this.quantity = qty;
-	}
-
-	/**
-	 * This is determined as get name method for Product class
-	 * @return name of that Product
-	 */
-	public String getName()
-	{
-		return name;
-	}
-
-	/**
-	 * This is determined as get quantity method for Product class
-	 * @return quantity of that Product
-	 */
-	public int getQuantity()
-	{
-		return quantity;
 	}
 
 	/**
