@@ -6,13 +6,14 @@
  * This is my own work
  */
 package game;
-
-
 /**
  * Weapon class is inherited from Product abstract class
  */
 public class Weapon extends Product
 {
+	/**
+	 * This is the default constructor for this class which inherited from super class
+	 */
 	public Weapon()
 	{
 		super();
@@ -28,7 +29,6 @@ public class Weapon extends Product
 	public Weapon(String name, String description, double price, int quantity)
 	{
 		super(name, description, price, quantity);
-		// TODO Auto-generated constructor stub
 	}
 
 }

@@ -77,7 +77,7 @@ public class ShoppingCart
 	 * This is determine the getProduct method of Shopping Cart
 	 * 
 	 * @param name is a name of product
-	 * @param qty  is a quantity of chosen product
+	 * @param qty is a quantity of chosen product
 	 * @return temp is a clone product
 	 * @throws CloneNotSupportedException throw this exception to indicate that an object could not or should not be cloned.
 	 */

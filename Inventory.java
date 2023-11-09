@@ -9,19 +9,27 @@ package game;
 
 import java.util.*;
 
+import exception.CustomException;
+
 /**
  * this is the inventory of available Salable Products in store
  */
 public class Inventory implements Cloneable
 {
-	FileService file = new FileService();
-	ArrayList<Product> inventory = initialize();
+	 
+	FileService file;
+	ArrayList<Product> inventory;
+	
+	public Inventory() throws CustomException {
+		file = new FileService();
+		inventory = initialize();
+	}
 
 	/**
 	 * Override the protected clone method defined in the Object class, and
 	 * strengthen its accessibility
 	 * 
-	 * @return
+	 * @return the clone object
 	 */
 	@Override
 	protected Object clone() throws CloneNotSupportedException
@@ -34,36 +42,16 @@ public class Inventory implements Cloneable
 	 * initialize list of available Salable Product list is sort by name and price
 	 * 
 	 * @return the ArrayList of Product named inventory
+	 * @throws CustomException 
 	 */
-	public ArrayList<Product> initialize()
+	public ArrayList<Product> initialize() throws CustomException
 	{
-		ArrayList<Product> inventory = new ArrayList<Product>();
-		// create 2 Weapon objects
-		Product gun = new Weapon("gun", "100 Damage", 125.00, 25);
-		Product bomb = new Weapon("bomb", "150 Damage", 175.00, 25);
-		// create 2 Armor objects
-		Product shield = new Armor("shield", "900 Block", 450.00, 13);
-		Product helmet = new Armor("helmet", "250 Block", 100.00, 20);
-		// create 2 Health objects
-		Product food = new Health("food", "500 HP", 500.00, 15);
-		Product drink = new Health("drink", "300 HP", 150.00, 14);
 
-		// Create an initial inventory with products
-		inventory.add(gun);
-		inventory.add(bomb);
-		inventory.add(shield);
-		inventory.add(helmet);
-		inventory.add(food);
-		inventory.add(drink);
-
-		Collections.sort(inventory);
-		file.useFile(inventory);
-		return inventory;
+		return file.useFile();
 	}
 
 	/**
 	 * This is determine the getProduct method of Inventory
-	 * 
 	 * @param name is a name of product
 	 * @param qty  is a quantity of chosen product
 	 * @return temp is a clone product
@@ -119,7 +107,6 @@ public class Inventory implements Cloneable
 		{
 			System.out.println("ERROR: PRODUCT IS NOT FOUND");
 		}
-		file.useFile(inventory);
 		return temp;
 	}
 
@@ -155,18 +142,15 @@ public class Inventory implements Cloneable
 				item += 1;
 			}
 		}
-		file.useFile(inventory);
 		return another;
 	}
 
 	/**
 	 * This is determined as returning method for inventory ArrayList
-	 * 
 	 * @return the inventory ArrayList
 	 */
 	public ArrayList<Product> returnList()
 	{
-		file.useFile(inventory);
 		return inventory;
 	}
 

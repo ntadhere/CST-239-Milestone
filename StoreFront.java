@@ -9,6 +9,8 @@ package game;
 
 import java.util.Scanner;
 
+import exception.CustomException;
+
 /**
  * class with a main method containing an instance of Inventory class and
  * ShoppingCart class
@@ -17,7 +19,7 @@ public class StoreFront
 {
 	static Scanner scan = new Scanner(System.in);
 	static Scanner item = new Scanner(System.in);
-	static Inventory inventory = new Inventory();
+	static Inventory inventory;
 	static ShoppingCart cart = new ShoppingCart();
 
 	/**
@@ -167,10 +169,12 @@ public class StoreFront
 	 * 
 	 * @param args this is automatic JAVA generation
 	 * @throws CloneNotSupportedException throw this exception to indicate that an object could not or should not be cloned.
+	 * @throws CustomException 
 
 	 */
-	public static void main(String[] args) throws CloneNotSupportedException 
+	public static void main(String[] args) throws CloneNotSupportedException, CustomException 
 	{
+		inventory = new Inventory();
 		StoreFront store = new StoreFront();
 		System.out.println("--------------------------------------------");
 		System.out.println("----------- WELCOME TO UWU STORE -----------");
