@@ -2,12 +2,12 @@
  * Truong Anh Dao Nguyen
  * CST-239
  * 11/05/2023
- * This is Inventory manager for Milestone 4
+ * This is Store Front
  * This is my own work
  */
 package game;
 
-import java.util.Scanner;
+import java.util.*;
 
 import exception.CustomException;
 
@@ -169,7 +169,7 @@ public class StoreFront
 	 * 
 	 * @param args this is automatic JAVA generation
 	 * @throws CloneNotSupportedException throw this exception to indicate that an object could not or should not be cloned.
-	 * @throws CustomException 
+	 * @throws CustomException is a custom exception
 
 	 */
 	public static void main(String[] args) throws CloneNotSupportedException, CustomException 

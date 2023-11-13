@@ -1,16 +1,24 @@
+/**
+ * Truong Anh Dao Nguyen
+ * CST-239
+ * 11/12/2023
+ * This is Custom Exception
+ * This is my own work
+ */
+
 package exception;
 
-/*
- * Example Custom Checked Exception
- * @author dao
+/**
+ * Custom Checked Exception
  */
 public class CustomException extends Exception
 {
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 	
+	/**
+	 * Default constructor for customException class
+	 * @param msg is custom exception message
+	 */
 	public CustomException(String msg)
 	{
 		super(msg);

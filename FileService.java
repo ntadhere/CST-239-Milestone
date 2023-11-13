@@ -1,8 +1,8 @@
 /**
  * Truong Anh Dao Nguyen
  * CST-239
- * 11/05/2023
- * This is Inventory manager for Milestone 4
+ * 11/12/2023
+ * This is File Service
  * This is my own work
  */
 package game;
@@ -25,7 +25,7 @@ public class FileService
 	 * 
 	 * @param filename  is a text file of inventory
 	 * @param inventory is an array of list of inventory product
-	 * @throws CustomException
+	 * @throws CustomException is a custom exception
 	 */
 	private void saveToFile(String filename, Product[] inventory) throws CustomException
 	{
@@ -58,7 +58,7 @@ public class FileService
 	 * 
 	 * @param filename is a text file of inventory
 	 * @return the array of inventory's Product
-	 * @throws CustomException 
+	 * @throws CustomException is a custom exception
 	 */
 	private Product[] readFromFile(String filename) throws CustomException
 	{
@@ -81,17 +81,17 @@ public class FileService
 	 * method use the File Service to read, write and store data to text file and
 	 * vice versa
 	 * 
-	 * @param list of array list need to convert to array
 	 * @return the array list which is converted from array
-	 * @throws CustomException 
+	 * @throws CustomException is a custom exception
 	 */
-	public ArrayList<Product> useFile() throws CustomException
+	public List<Product> useFile() throws CustomException
 	{
-		ArrayList<Product> inventory = new ArrayList<Product>();
+		List<Product> inventory = new ArrayList<Product>();
 		// create 2 Weapon objects
 		Product gun = new Weapon("gun", "100 Damage", 125.00, 25);
 		Product bomb = new Weapon("bomb", "150 Damage", 175.00, 25);
 		// create 2 Armor objects
+		Product shield1 = new Armor("shield", "900 Block", 500.00, 11);
 		Product shield = new Armor("shield", "900 Block", 450.00, 13);
 		Product helmet = new Armor("helmet", "250 Block", 100.00, 20);
 		// create 2 Health objects
@@ -101,6 +101,7 @@ public class FileService
 		// Create an initial inventory with products
 		inventory.add(gun);
 		inventory.add(bomb);
+		inventory.add(shield1);
 		inventory.add(shield);
 		inventory.add(helmet);
 		inventory.add(food);
@@ -109,12 +110,20 @@ public class FileService
 		Collections.sort(inventory);
 
 		Product[] list = inventory.toArray(new Product[0]);
-		// Write the inventory of product to a file as JSON
-		saveToFile("out.json", list);
-
 		// Read the product from the file and print.out
-		Product[] product = readFromFile("out.json");
-		ArrayList<Product> inventoryList = new ArrayList<>(Arrays.asList(product));
+		Product[] product = null;
+		try
+		{
+			// Write the inventory of product to a file as JSON
+			saveToFile("out.json", list);
+			product = readFromFile("out.json");
+		} catch (CustomException e)
+		{
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			System.out.println("Application Error: " + e.getMessage());
+		}
+		List<Product> inventoryList = new ArrayList<>(Arrays.asList(product));
 		return inventoryList;
 	}
 }

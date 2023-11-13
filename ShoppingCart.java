@@ -1,21 +1,19 @@
 /**
  * Truong Anh Dao Nguyen
  * CST-239
- * 11/05/2023
- * This is Inventory manager for Milestone 4
+ * 11/12/2023
+ * This is Shopping Cart
  * This is my own work
  */
 package game;
 
-import java.util.ArrayList;
-import java.util.Collections;
-
+import java.util.*;
 /**
  * This is Shopping Cart of the Store Front
  */
 public class ShoppingCart
 {
-	ArrayList<Product> shopCart = initialize();
+	List<Product> shopCart = initialize();
 
 	/**
 	 * This is non-default constructor used to initialize the ArrayList for the
@@ -23,9 +21,9 @@ public class ShoppingCart
 	 * 
 	 * @return the cart ArrayList
 	 */
-	public ArrayList<Product> initialize()
+	public List<Product> initialize()
 	{
-		ArrayList<Product> shopCart = new ArrayList<Product>();
+		List<Product> shopCart = new ArrayList<Product>();
 		return shopCart;
 	}
 
@@ -139,7 +137,7 @@ public class ShoppingCart
 	 * 
 	 * @return the shopping cart ArrayList
 	 */
-	public ArrayList<Product> returnList()
+	public List<Product> returnList()
 	{
 		return shopCart;
 	}
@@ -148,7 +146,7 @@ public class ShoppingCart
 	 * This is determined as empty method for the Shopping Cart when check out
 	 * @return the shopping cart ArrayList
 	 */
-	public ArrayList<Product> emptyCart()
+	public List<Product> emptyCart()
 	{
 		shopCart.removeAll(shopCart);
 		System.out.println(".... EMPTY YOUR SHOPPING CART --> EXIT NOW");

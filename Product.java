@@ -2,7 +2,7 @@
  * Truong Anh Dao Nguyen
  * CST-239
  * 11/05/2023
- * This is Inventory manager for Milestone 4
+ * This is Salable Product
  * This is my own work
  */
 

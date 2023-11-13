@@ -1,8 +1,8 @@
 /**
  * Truong Anh Dao Nguyen
  * CST-239
- * 11/05/2023
- * This is Inventory manager for Milestone 4
+ * 11/12/2023
+ * This is Inventory manager
  * This is my own work
  */
 package game;
@@ -18,8 +18,12 @@ public class Inventory implements Cloneable
 {
 	 
 	FileService file;
-	ArrayList<Product> inventory;
+	List<Product> inventory;
 	
+	/**
+	 * default constructor of inventory class
+	 * @throws CustomException is a custom exception
+	 */
 	public Inventory() throws CustomException {
 		file = new FileService();
 		inventory = initialize();
@@ -42,9 +46,9 @@ public class Inventory implements Cloneable
 	 * initialize list of available Salable Product list is sort by name and price
 	 * 
 	 * @return the ArrayList of Product named inventory
-	 * @throws CustomException 
+	 * @throws CustomException is a custom exception
 	 */
-	public ArrayList<Product> initialize() throws CustomException
+	public List<Product> initialize() throws CustomException
 	{
 
 		return file.useFile();
@@ -149,7 +153,7 @@ public class Inventory implements Cloneable
 	 * This is determined as returning method for inventory ArrayList
 	 * @return the inventory ArrayList
 	 */
-	public ArrayList<Product> returnList()
+	public List<Product> returnList()
 	{
 		return inventory;
 	}
