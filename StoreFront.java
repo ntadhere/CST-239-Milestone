@@ -5,8 +5,10 @@
  * This is Store Front
  * This is my own work
  */
-package game;
+package server;
 
+import java.io.IOException;
+import java.net.Socket;
 import java.util.*;
 
 import exception.CustomException;
@@ -163,19 +165,40 @@ public class StoreFront
 			}
 		}
 	}
+	
+	public static void adminManage() throws IOException
+	{
+		System.out.println("Waiting for a Admin connection......");
+		Socket clientSocket = inventory.connectionCheck(6666);
+		System.out.println("Received a Client connection on port " + inventory.getPort());
+		System.out.println("Got a message of: " + inventory.start(clientSocket));
+
+			//Exit message that Server is shut down
+			System.out.println("Server is shut down");
+			inventory.cleanup();
+	}
 
 	/**
 	 * Main method to display welcome message and get all the code load
-	 * 
+	 * r
 	 * @param args this is automatic JAVA generation
 	 * @throws CloneNotSupportedException throw this exception to indicate that an object could not or should not be cloned.
 	 * @throws CustomException is a custom exception
+	 * @throws IOException 
 
 	 */
-	public static void main(String[] args) throws CloneNotSupportedException, CustomException 
+	public static void main(String[] args) throws CloneNotSupportedException, CustomException, IOException 
 	{
 		inventory = new Inventory();
 		StoreFront store = new StoreFront();
+		System.out.println("Are you Admin?");
+		String input = scan.nextLine();
+		if (input.equalsIgnoreCase("Y"))
+		{
+			adminManage();
+		}
+		else
+		{
 		System.out.println("--------------------------------------------");
 		System.out.println("----------- WELCOME TO UWU STORE -----------");
 		System.out.println("---In here you can find all what you need---");
@@ -183,6 +206,7 @@ public class StoreFront
 		inventory.initialize(); // initialize list of Salable Product in Inventory list
 		cart.initialize(); // initialize list of Salable Product in Inventory list
 		store.showMenu();
+		}
 	}
 
 }
