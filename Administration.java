@@ -15,21 +15,35 @@ public class Administration
 		System.out.println("----------------------------------------------------------");		
 		System.out.println("Choose action to continue:");
 		System.out.println("---------");		
-		System.out.println("Command R: Return all the Salable Products from the Store Front Inventory");		
-		System.out.println("Command U: Update the Store Front inventory with new Salable Products.");		
-		System.out.println("---------");		
-		String input = userInput.nextLine();
-		
-		if (input.equalsIgnoreCase("R"))
+		System.out.println("1. RETRIEVE Inventory");		
+		System.out.println("2. UPDATE Inventory");		
+		System.out.println("3. QUIT");		
+		System.out.println("---------");
+		while (!userInput.hasNextInt()) // check if input is a number
 		{
-			// return all the salable products from the Store Front
-			client.start("127.0.0.1", 6666);
-			response = client.sendMessage("Admin want to view the Inventory");
-			System.out.println("Inventory Manager response was " + response);
+			System.out.println("Input is not a number.");
+			userInput.nextLine();
 		}
-		if (input.equalsIgnoreCase("U"))
+		// when input is a number, the while loop return false and stop
+		int input = userInput.nextInt();
+		client.start("127.0.0.1", 6666);
+
+		switch (input)
 		{
+		case 1:
+			// return all the salable products from the Store Front
+			response = client.sendMessage("R");
+			System.out.println("Inventory Manager response was " + response);
+			break;
+		case 2:
+		
 			// Update the Store Front inventory with new Salable Product
+			break;
+		case 3:
+			// QUIT
+			break;
+		default:
+			System.out.println("There is no method exist for this option. Please choose a desire number");
 		}
 	}
 }

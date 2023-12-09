@@ -22,6 +22,7 @@ public class StoreFront
 	static Scanner scan = new Scanner(System.in);
 	static Scanner item = new Scanner(System.in);
 	static Inventory inventory;
+	static Server server = new Server();
 	static ShoppingCart cart = new ShoppingCart();
 
 	/**
@@ -166,16 +167,25 @@ public class StoreFront
 		}
 	}
 	
-	public static void adminManage() throws IOException
+	public static void adminManage() throws IOException, CustomException
 	{
 		System.out.println("Waiting for a Admin connection......");
-		Socket clientSocket = inventory.connectionCheck(6666);
-		System.out.println("Received a Client connection on port " + inventory.getPort());
-		System.out.println("Got a message of: " + inventory.start(clientSocket));
+		Socket clientSocket = server.connectionCheck(6666);
+		System.out.println("Received a Client connection on port " + server.getPort());
+		String cmd = server.start(clientSocket);
+		System.out.println("Got a command: " + cmd );
+		if (cmd.equalsIgnoreCase("R"))
+		{
+			System.out.println("Admin want to retrieve the Inventory");
+		}
+		else if (server.start(clientSocket).equalsIgnoreCase("U"))
+		{
+			
+		}
 
 			//Exit message that Server is shut down
 			System.out.println("Server is shut down");
-			inventory.cleanup();
+			server.cleanup();
 	}
 
 	/**
