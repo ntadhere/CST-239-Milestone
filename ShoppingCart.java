@@ -5,7 +5,7 @@
  * This is Shopping Cart
  * This is my own work
  */
-package game;
+package server;
 
 import java.util.*;
 /**

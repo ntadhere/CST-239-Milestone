@@ -5,7 +5,7 @@
  * This is Weapon product
  * This is my own work
  */
-package game;
+package server;
 /**
  * Weapon class is inherited from Product abstract class
  */

@@ -6,7 +6,7 @@
  * This is my own work
  */
 
-package game;
+package server;
 
 /**
  * Armor class is inherited from Product abstract class

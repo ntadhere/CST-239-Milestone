@@ -8,21 +8,22 @@ import exception.CustomException;
 public class Administration
 {
 	static Scanner userInput = new Scanner(System.in);
+	static Scanner update = new Scanner(System.in);
+
 	static AdminService client = new AdminService();
+
 	public static void main(String[] args) throws IOException, CustomException
 	{
-		boolean exit = false;
-		while (exit != true)
-		{
 		String response = null;
+
 		System.out.println("----------------------------------------------------------");
 		System.out.println("----------- THIS IS ADMINISTRATIVE APPLICATION -----------");
-		System.out.println("----------------------------------------------------------");		
+		System.out.println("----------------------------------------------------------");
 		System.out.println("Choose action to continue:");
-		System.out.println("---------");		
-		System.out.println("1. RETRIEVE Inventory");		
-		System.out.println("2. UPDATE Inventory");		
-		System.out.println("3. QUIT");		
+		System.out.println("---------");
+		System.out.println("1. RETRIEVE Inventory");
+		System.out.println("2. UPDATE Inventory");
+		System.out.println("3. QUIT");
 		System.out.println("---------");
 		while (!userInput.hasNextInt()) // check if input is a number
 		{
@@ -39,25 +40,26 @@ public class Administration
 			response = client.sendMessage("R");
 			System.out.println("Inventory Manager response was ");
 			System.out.println(response);
-			client.cleanup();
-			exit = false;
 			break;
 		case 2:
-			client.start("127.0.0.1", 6666);
 			// Update the Store Front inventory with new Salable Product
-			exit = false;
+			System.out.println("Enter data follow this order: 'type, name, description, price, quantity'");
+			String data = update.nextLine();
+			client.start("127.0.0.1", 6666);
+			response = client.sendMessage("U" + " | " + data);
+			System.out.println("Inventory Manager response was ");
+			System.out.println(response);
 			break;
 		case 3:
 			// QUIT
+			client.start("127.0.0.1", 6666);
+			client.sendMessage("Q");
 			System.out.println("You exit out of Administration Application.");
-			exit = true;
 			break;
 		default:
 			System.out.println("There is no method exist for this option. Please choose a desire number");
-			exit = false;
 		}
-//		client.cleanup();
+		client.cleanup();
 
-		}
 	}
 }

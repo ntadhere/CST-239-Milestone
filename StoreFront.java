@@ -30,7 +30,8 @@ public class StoreFront
 	 * input name and quantity then remove Product from Inventory to add to
 	 * ShoppingCart
 	 * 
-	 * @throws CloneNotSupportedException throw this exception to indicate that an object could not or should not be cloned.
+	 * @throws CloneNotSupportedException throw this exception to indicate that an
+	 *                                    object could not or should not be cloned.
 	 */
 	public static void purchase() throws CloneNotSupportedException
 	{
@@ -62,7 +63,8 @@ public class StoreFront
 	 * input name and quantity then remove Product from ShoppingCart to add back to
 	 * Inventory
 	 * 
-	 * @throws CloneNotSupportedException throw this exception to indicate that an object could not or should not be cloned.
+	 * @throws CloneNotSupportedException throw this exception to indicate that an
+	 *                                    object could not or should not be cloned.
 	 */
 	public static void cancel() throws CloneNotSupportedException
 	{
@@ -90,7 +92,8 @@ public class StoreFront
 	 * This is a non-default constructor take user input from the keyboard and
 	 * display appropriate feedback on the console
 	 * 
-	 * @throws CloneNotSupportedException throw this exception to indicate that an object could not or should not be cloned.
+	 * @throws CloneNotSupportedException throw this exception to indicate that an
+	 *                                    object could not or should not be cloned.
 	 */
 	private void showMenu() throws CloneNotSupportedException
 	{
@@ -134,8 +137,7 @@ public class StoreFront
 					System.out.println("----------------------------");
 					System.out.println("YOUR SHOPPING CART IS EMPTY");
 					System.out.println("----------------------------");
-				}
-				else
+				} else
 				{
 					System.out.println("----------------------------");
 					System.out.println("YOUR SHOPPING CART:");
@@ -166,58 +168,72 @@ public class StoreFront
 			}
 		}
 	}
-	
+
 	public static void adminManage() throws IOException, CustomException
 	{
 		System.out.println("Waiting for a Admin connection......");
 		Socket clientSocket = server.connectionCheck(6666);
 		System.out.println("Received a Client connection on port " + server.getPort());
-		String cmd = server.start(clientSocket);
+		Map<String, Object> map = server.start(clientSocket);
+		String cmd = (String) map.get("data");
+		Product item = (Product) map.get("product");
+		System.out.println("Got a command: " + cmd );
 		if (cmd.equalsIgnoreCase("R"))
 		{
-			System.out.println("Got a command: " + cmd );
-
 			System.out.println("Admin want to retrieve the Inventory");
 		}
-		else if (server.start(clientSocket).equalsIgnoreCase("U"))
+		else if (cmd.equalsIgnoreCase("U"))
 		{
-			
+			inventory.addNewProduct(item);
+			System.out.println("Admin want to update the Inventory");
 		}
-
-			//Exit message that Server is shut down
+		else if (cmd.equalsIgnoreCase("Q"))
+		{
+			// Exit message that Server is shut down
 			System.out.println("Server is shut down");
-			server.cleanup();
+		}
+		System.out.println("--------------------------");
+
+		server.cleanup();
+
+
 	}
 
 	/**
-	 * Main method to display welcome message and get all the code load
-	 * r
+	 * Main method to display welcome message and get all the code load r
+	 * 
 	 * @param args this is automatic JAVA generation
-	 * @throws CloneNotSupportedException throw this exception to indicate that an object could not or should not be cloned.
-	 * @throws CustomException is a custom exception
-	 * @throws IOException 
-
+	 * @throws CloneNotSupportedException throw this exception to indicate that an
+	 *                                    object could not or should not be cloned.
+	 * @throws CustomException            is a custom exception
+	 * @throws IOException
+	 * 
 	 */
-	public static void main(String[] args) throws CloneNotSupportedException, CustomException, IOException 
+	public static void main(String[] args) throws CloneNotSupportedException, CustomException, IOException
 	{
-		inventory = new Inventory();
 		StoreFront store = new StoreFront();
-		System.out.println("Are you Admin?");
-		String input = scan.nextLine();
-		if (input.equalsIgnoreCase("Y"))
-		{
-			adminManage();
-		}
-		else
-		{
-		System.out.println("--------------------------------------------");
-		System.out.println("----------- WELCOME TO UWU STORE -----------");
-		System.out.println("---In here you can find all what you need---");
-		System.out.println("--------------------------------------------");
+		inventory = new Inventory();
 		inventory.initialize(); // initialize list of Salable Product in Inventory list
 		cart.initialize(); // initialize list of Salable Product in Inventory list
-		store.showMenu();
+		boolean isAdmin = true;
+		while (isAdmin == true)
+		{
+			System.out.println("Make any change as Admin? (Y/N)");
+			String input = scan.nextLine();
+			if (input.equalsIgnoreCase("Y"))
+			{
+				adminManage();
+				isAdmin = true;
+			}
+			else if (input.equalsIgnoreCase("N"))
+			{
+				System.out.println("--------------------------------------------");
+				System.out.println("----------- WELCOME TO UWU STORE -----------");
+				System.out.println("---In here you can find all what you need---");
+				System.out.println("--------------------------------------------");
+				store.showMenu();
+				isAdmin = false;
+			}
 		}
 	}
-
 }

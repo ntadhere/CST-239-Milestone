@@ -5,7 +5,7 @@
  * This is Health product
  * This is my own work
  */
-package game;
+package server;
 
 /**
  * Health class is inherited from Product abstract class

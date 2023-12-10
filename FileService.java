@@ -131,17 +131,12 @@ public class FileService
 		List<Product> inventoryList = new ArrayList<>(Arrays.asList(product));
 		return inventoryList;
 	}
-	public String listToJson() throws JsonProcessingException, CustomException
+	public String listToJson(List<Product> inventory) throws JsonProcessingException, CustomException
 	{
 		ObjectMapper mapper = new ObjectMapper();
-        String json = mapper.writeValueAsString(useFile());
+        String json = mapper.writeValueAsString(inventory);
         return json;
 	}
-	public List<Product> jsonToList() throws JsonMappingException, JsonProcessingException, CustomException
-	{
-		
-        ObjectMapper mapper = new ObjectMapper();
-        List<Product> items = mapper.readValue(listToJson(), new TypeReference<List<Product>>(){});
-		return items;
-	}
+	
+	
 }

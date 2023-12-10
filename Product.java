@@ -6,7 +6,7 @@
  * This is my own work
  */
 
-package game;
+package server;
 
 import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonSubTypes.Type;

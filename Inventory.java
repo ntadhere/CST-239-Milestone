@@ -157,5 +157,11 @@ public class Inventory implements Cloneable
 	{
 		return inventory;
 	}
+	
+	public List<Product> addNewProduct(Product another)
+	{
+		inventory.add(another);
+		return inventory;
+	}
 
 }
