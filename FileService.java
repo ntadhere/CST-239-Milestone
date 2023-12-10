@@ -5,12 +5,17 @@
  * This is File Service
  * This is my own work
  */
-package game;
+package server;
 
 import java.io.*;
 import java.util.*;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.core.type.TypeReference;
+
+
 
 import exception.CustomException;
 
@@ -125,5 +130,18 @@ public class FileService
 		}
 		List<Product> inventoryList = new ArrayList<>(Arrays.asList(product));
 		return inventoryList;
+	}
+	public String listToJson() throws JsonProcessingException, CustomException
+	{
+		ObjectMapper mapper = new ObjectMapper();
+        String json = mapper.writeValueAsString(useFile());
+        return json;
+	}
+	public List<Product> jsonToList() throws JsonMappingException, JsonProcessingException, CustomException
+	{
+		
+        ObjectMapper mapper = new ObjectMapper();
+        List<Product> items = mapper.readValue(listToJson(), new TypeReference<List<Product>>(){});
+		return items;
 	}
 }

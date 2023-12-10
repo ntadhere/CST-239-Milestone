@@ -49,7 +49,7 @@ public class Server
 		String inputLine;
 		if ((inputLine = in.readLine()) != null)
 		{
-				out.println(file.convertToString());
+				out.println(file.listToJson());
 		}
 		return inputLine;
 	}

@@ -173,9 +173,10 @@ public class StoreFront
 		Socket clientSocket = server.connectionCheck(6666);
 		System.out.println("Received a Client connection on port " + server.getPort());
 		String cmd = server.start(clientSocket);
-		System.out.println("Got a command: " + cmd );
 		if (cmd.equalsIgnoreCase("R"))
 		{
+			System.out.println("Got a command: " + cmd );
+
 			System.out.println("Admin want to retrieve the Inventory");
 		}
 		else if (server.start(clientSocket).equalsIgnoreCase("U"))

@@ -6,12 +6,17 @@ import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.Socket;
 import java.net.UnknownHostException;
+import java.util.List;
+
+import server.FileService;
+import server.Product;
 
 public class AdminService
 {
 	private Socket clientSocket;
 	private PrintWriter out;
 	private BufferedReader in;
+	FileService file = new FileService();
 	
 	/**
 	 * Connect to the remote Server on the specified IP Address and Port
@@ -61,9 +66,5 @@ public class AdminService
 		clientSocket.close();
 	}
 	
-	public String getMessage(String msg) throws IOException
-	{
-		return msg;
-		
-	}
+
 }
