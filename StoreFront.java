@@ -169,6 +169,11 @@ public class StoreFront
 		}
 	}
 
+	/**
+	 * This is logic method between server and client networking using Thread in the background
+	 * @throws IOException
+	 * @throws CustomException
+	 */
 	public static void adminManage() throws IOException, CustomException
 	{
 		System.out.println("Waiting for a Admin connection......");

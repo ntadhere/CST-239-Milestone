@@ -1,3 +1,11 @@
+/**
+ * Truong Anh Dao Nguyen
+ * CST-239
+ * 12/10/2023
+ * This is Administration Service
+ * This is my own work
+ */
+
 package client;
 
 import java.io.BufferedReader;
@@ -9,6 +17,10 @@ import java.net.UnknownHostException;
 
 import server.FileService;
 
+/**
+ * Admin Service for Administration Application
+ * receive and send message to Store Front Application
+ */
 public class AdminService
 {
 	private Socket clientSocket;

@@ -1,3 +1,10 @@
+/**
+ * Truong Anh Dao Nguyen
+ * CST-239
+ * 12/10/2023
+ * This is Administration Application
+ * This is my own work
+ */
 package client;
 
 import java.io.IOException;
@@ -5,17 +12,24 @@ import java.util.Scanner;
 
 import exception.CustomException;
 
+/**
+ * Administration Application for Milestone 6
+ */
 public class Administration
 {
 	static Scanner userInput = new Scanner(System.in);
 	static Scanner update = new Scanner(System.in);
-
 	static AdminService client = new AdminService();
 
+	/**
+	 * Main method or the application - entrance
+	 * @param args argument (not important)
+	 * @throws IOException
+	 * @throws CustomException
+	 */
 	public static void main(String[] args) throws IOException, CustomException
 	{
 		String response = null;
-
 		System.out.println("----------------------------------------------------------");
 		System.out.println("----------- THIS IS ADMINISTRATIVE APPLICATION -----------");
 		System.out.println("----------------------------------------------------------");

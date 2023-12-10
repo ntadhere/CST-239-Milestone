@@ -1,3 +1,11 @@
+/**
+ * Truong Anh Dao Nguyen
+ * CST-239
+ * 12/10/2023
+ * This is Main Server Class
+ * This is my own work
+ */
+
 package server;
 
 
@@ -8,13 +16,12 @@ import java.io.PrintWriter;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import exception.CustomException;
 
 /**
- * Server class for Activity 6_2
+ * Server class for Milestone 6
  */
 public class Server
 {
@@ -26,10 +33,20 @@ public class Server
 	FileService file = new FileService();
 	Inventory inventory;
 	
+	/**
+	 * Port getter
+	 * @return port location
+	 */
 	public int getPort()
 	{ 
 		return clientSocket.getLocalPort();
 	}
+	/**
+	 * Connection check for server-client network
+	 * @param port port location
+	 * @return an accepted socket
+	 * @throws IOException
+	 */
 	public Socket connectionCheck(int port)throws IOException
 	{
 
@@ -41,6 +58,13 @@ public class Server
 	 * @param port Port to listen on.
 	 * @throws IOException Thrown in the networking classes if something bad happened.
 	 * @throws CustomException 
+	 */
+	/**
+	 * Start the Server and wait for connections on the specific part
+	 * @param clientSocket an approved socket
+	 * @return a HashMap contains input data to send to Admin console and new Salable Product if have
+	 * @throws IOException
+	 * @throws CustomException
 	 */
 	public Map<String, Object> start(Socket clientSocket) throws IOException, CustomException
 	{

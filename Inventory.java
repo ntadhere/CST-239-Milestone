@@ -158,6 +158,11 @@ public class Inventory implements Cloneable
 		return inventory;
 	}
 	
+	/**
+	 * This is determined an updated list with new Product added
+	 * @param another Product object
+	 * @return a new updated list
+	 */
 	public List<Product> addNewProduct(Product another)
 	{
 		inventory.add(another);
