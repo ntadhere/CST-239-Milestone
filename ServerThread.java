@@ -28,7 +28,7 @@ public class ServerThread extends Thread
 		Server server = new Server();
 		try
 		{
-			Socket clientSocket = server.connectionCheck(6666);
+			Socket clientSocket = server.checkConnection(6666);
 			server.start(clientSocket);
 			server.cleanup();
 		}

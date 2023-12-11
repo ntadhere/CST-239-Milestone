@@ -127,6 +127,13 @@ public class FileService
 		List<Product> inventoryList = new ArrayList<>(Arrays.asList(product));
 		return inventoryList;
 	}
+	/**
+	 * Convert List Product to JSON string and return string
+	 * @param inventory is the List of Salable Product
+	 * @return JSON string
+	 * @throws JsonProcessingException
+	 * @throws CustomException
+	 */
 	public String listToJson(List<Product> inventory) throws JsonProcessingException, CustomException
 	{
 		ObjectMapper mapper = new ObjectMapper();

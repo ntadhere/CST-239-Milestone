@@ -174,14 +174,13 @@ public class StoreFront
 	 * @throws IOException
 	 * @throws CustomException
 	 */
-	public static void adminManage() throws IOException, CustomException
+	public static void manageByAd() throws IOException, CustomException
 	{
 		System.out.println("Waiting for a Admin connection......");
-		Socket clientSocket = server.connectionCheck(6666);
+		Socket clientSocket = server.checkConnection(6666);
 		System.out.println("Received a Client connection on port " + server.getPort());
 		Map<String, Object> map = server.start(clientSocket);
 		String cmd = (String) map.get("data");
-		Product item = (Product) map.get("product");
 		System.out.println("Got a command: " + cmd );
 		if (cmd.equalsIgnoreCase("R"))
 		{
@@ -189,7 +188,7 @@ public class StoreFront
 		}
 		else if (cmd.equalsIgnoreCase("U"))
 		{
-			inventory.addNewProduct(item);
+			inventory.addNewProduct((Product) map.get("product"));
 			System.out.println("Admin want to update the Inventory");
 		}
 		else if (cmd.equalsIgnoreCase("Q"))
@@ -227,18 +226,18 @@ public class StoreFront
 			String input = scan.nextLine();
 			if (input.equalsIgnoreCase("Y"))
 			{
-				adminManage();
+				manageByAd();
 				isAdmin = true;
 			}
 			else if (input.equalsIgnoreCase("N"))
 			{
-				System.out.println("--------------------------------------------");
-				System.out.println("----------- WELCOME TO UWU STORE -----------");
-				System.out.println("---In here you can find all what you need---");
-				System.out.println("--------------------------------------------");
-				store.showMenu();
 				isAdmin = false;
 			}
 		}
+		System.out.println("--------------------------------------------");
+		System.out.println("----------- WELCOME TO UWU STORE -----------");
+		System.out.println("---In here you can find all what you need---");
+		System.out.println("--------------------------------------------");
+		store.showMenu();
 	}
 }

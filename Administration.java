@@ -17,9 +17,9 @@ import exception.CustomException;
  */
 public class Administration
 {
-	static Scanner userInput = new Scanner(System.in);
-	static Scanner update = new Scanner(System.in);
-	static AdminService client = new AdminService();
+	private static Scanner userInput = new Scanner(System.in);
+	private static Scanner update = new Scanner(System.in);
+	private static AdminService client = new AdminService();
 
 	/**
 	 * Main method or the application - entrance

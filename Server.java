@@ -47,7 +47,7 @@ public class Server
 	 * @return an accepted socket
 	 * @throws IOException
 	 */
-	public Socket connectionCheck(int port)throws IOException
+	public Socket checkConnection(int port)throws IOException
 	{
 
 		serverSocket = new ServerSocket(port);
