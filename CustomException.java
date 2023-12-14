@@ -33,4 +33,10 @@ public class CustomException extends Exception
 	{
 		super(msg, e);
 	}
+
+	public void getMessage(String string)
+	{
+		// TODO Auto-generated method stub
+		
+	}
 }

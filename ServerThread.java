@@ -7,9 +7,6 @@
 package server;
 
 import java.io.IOException;
-import java.net.Socket;
-
-import exception.CustomException;
 
 /**
  * ServerThread class for Milestone 6
@@ -28,13 +25,11 @@ public class ServerThread extends Thread
 		Server server = new Server();
 		try
 		{
-			Socket clientSocket = server.checkConnection(6666);
-			server.start(clientSocket);
+			server.start(6666);
 			server.cleanup();
 		}
-		catch (IOException | CustomException e)
+		catch (IOException e)
 		{
 			e.printStackTrace();
 		}
-	}
-}
+	}}

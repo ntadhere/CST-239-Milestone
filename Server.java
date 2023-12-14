@@ -15,8 +15,7 @@ import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.ServerSocket;
 import java.net.Socket;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.List;
 
 import exception.CustomException;
 
@@ -26,102 +25,95 @@ import exception.CustomException;
 public class Server
 {
 	// Class member variables
-	private ServerSocket serverSocket;
-	private Socket clientSocket;
-	private PrintWriter out;
-	private BufferedReader in;
-	FileService file = new FileService();
-	Inventory inventory;
-	
-	/**
-	 * Port getter
-	 * @return port location
-	 */
-	public int getPort()
-	{ 
-		return clientSocket.getLocalPort();
-	}
-	/**
-	 * Connection check for server-client network
-	 * @param port port location
-	 * @return an accepted socket
-	 * @throws IOException
-	 */
-	public Socket checkConnection(int port)throws IOException
-	{
+		private ServerSocket serverSocket;
+		private Socket clientSocket;
+		private PrintWriter out;
+		private BufferedReader in;
+		FileService file = new FileService();
+		Inventory inventory;
 
-		serverSocket = new ServerSocket(port);
-		return clientSocket = serverSocket.accept();
-	}
-	/**
-	 * Start the Server and wait for connections on the specified part.
-	 * @param port Port to listen on.
-	 * @throws IOException Thrown in the networking classes if something bad happened.
-	 * @throws CustomException 
-	 */
-	/**
-	 * Start the Server and wait for connections on the specific part
-	 * @param clientSocket an approved socket
-	 * @return a HashMap contains input data to send to Admin console and new Salable Product if have
-	 * @throws IOException
-	 * @throws CustomException
-	 */
-	public Map<String, Object> start(Socket clientSocket) throws IOException, CustomException
-	{
-		// If you get here then a Client connected to this Server 
-		// Create some input and output network buffers to communicate 
-		// back and forth with the Client
-		out = new PrintWriter(clientSocket.getOutputStream(), true);
-		in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
-		Product item = null;
-		// Wait for Command (string that is terminated by a line feed character)
-		String inputLine = in.readLine();
-		if (inputLine.equalsIgnoreCase("R"))
-		{
-			out.println(file.listToJson(file.useFile()));
-		}
-		else if (inputLine.split(" \\| ")[0].equalsIgnoreCase("U"))
-		{
-			// Store updated Salable product to a separate string
-			String data = inputLine.split(" \\| ")[1];
-			// Split the string store data by "," to define the property of the Salable product
-			String[] property = data.split(",");
-			//---------------------------------------------------------
-			// CHECK THE TYPE OF SALABLE PRODUCT
-			//---------------------------------------------------------
-			if (property[0].equalsIgnoreCase("weapon"))
-			{
-				item = new Weapon(property[1].trim(),property[2].trim(),Double.parseDouble(property[3].trim()),Integer.parseInt(property[4].trim()));
-			}
-			else if (property[0].equalsIgnoreCase("armor"))
-			{
-				item = new Armor(property[1].trim(),property[2].trim(),Double.parseDouble(property[3].trim()),Integer.parseInt(property[4].trim()));
-			}
-			else if (property[0].equalsIgnoreCase("health"))
-			{
-				item = new Health(property[1].trim(),property[2].trim(),Double.parseDouble(property[3].trim()),Integer.parseInt(property[4].trim()));
-			}
-			//---------------------------------------------------------
-			out.println("OK");
-			inputLine = inputLine.split(" \\ | ")[0];
-		}
-		Map<String, Object> map = new HashMap<>();
-		map.put("data", inputLine);
-		map.put("product", item);
-		return map;
-	}
-	/**
-	 * Cleanup logic to close all the network connections.
-	 * 
-	 * @throws IOException Thrown if anything bad happens from the networking classed
-	 */
-	public void cleanup() throws IOException
-	{
-		// Close all input and output network buffers and sockets
-		in.close();
-		out.close();
-		clientSocket.close();
-		serverSocket.close();
-	}
 
+		
+		/**
+		 * Start the Server and wait for connections on the specified part.
+		 * @param port Port to listen on.
+		 * @throws IOException Thrown in the networking classes if something bad happened.
+		 */
+		public void start(int port) throws IOException
+		{
+			// Wait for a Client connection
+			serverSocket = new ServerSocket(port);
+			clientSocket = serverSocket.accept();
+			
+			// If you get here then a Client connected to this Server 
+			// Create some input and output network buffers to communicate 
+			// back and forth with the Client
+//			System.out.println("Received a Admin connection on port " + clientSocket.getLocalPort());
+			out = new PrintWriter(clientSocket.getOutputStream(), true);
+			in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
+			
+			// Wait for Command (string that is terminated by a line feed character)
+			String inputLine;
+			while ((inputLine = in.readLine()) != null)
+			{
+				// If period command then shut the Server down
+				if(inputLine.equalsIgnoreCase("Q"))
+				{
+//					System.out.println("Got a message to shut the Server down");
+					out.println("QUIT");
+					break;
+				}
+				else if (inputLine.equalsIgnoreCase("R"))
+				{
+					// Echo an acknowledgement back to the Client that Command was processed successfully
+//					System.out.println("Got a message of: " + inputLine);
+					
+					try
+					{
+						out.println(file.saveToFile("admin.json", file.readFromFile("out.json")));
+					} catch (CustomException e)
+					{
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+
+					}
+				else if (inputLine.equalsIgnoreCase("U"))
+				{
+					// Echo an acknowledgement back to the Client that Command was processed successfully
+//					System.out.println("Got a message of: " + inputLine);
+					out.println("U");
+				}
+			}
+		}
+		/**
+		 * Cleanup logic to close all the network connections.
+		 * 
+		 * @throws IOException Thrown if anything bad happens from the networking classed
+		 */
+		public void cleanup() throws IOException
+		{
+			// Close all input and output network buffers and sockets
+			in.close();
+			out.close();
+			clientSocket.close();
+			serverSocket.close();
+		}
+		
+		/**
+		 * Entry method for the Server application (for testing only)
+		 * 
+		 * @param args
+		 * @throws IOException
+		 */
+		public static void main(String[] args) throws IOException
+		{
+			// Create an instance of this Server
+			// Start the Server on port 6666
+			// which will not return until the Shutdown Command is received
+			// and then on exit clean everything up
+			Server server = new Server();
+			server.start(6666);
+			server.cleanup();
+		}
 }

@@ -8,9 +8,7 @@
 package server;
 
 import java.io.IOException;
-import java.net.Socket;
 import java.util.*;
-
 import exception.CustomException;
 
 /**
@@ -170,40 +168,6 @@ public class StoreFront
 	}
 
 	/**
-	 * This is logic method between server and client networking using Thread in the background
-	 * @throws IOException
-	 * @throws CustomException
-	 */
-	public static void manageByAd() throws IOException, CustomException
-	{
-		System.out.println("Waiting for a Admin connection......");
-		Socket clientSocket = server.checkConnection(6666);
-		System.out.println("Received a Client connection on port " + server.getPort());
-		Map<String, Object> map = server.start(clientSocket);
-		String cmd = (String) map.get("data");
-		System.out.println("Got a command: " + cmd );
-		if (cmd.equalsIgnoreCase("R"))
-		{
-			System.out.println("Admin want to retrieve the Inventory");
-		}
-		else if (cmd.equalsIgnoreCase("U"))
-		{
-			inventory.addNewProduct((Product) map.get("product"));
-			System.out.println("Admin want to update the Inventory");
-		}
-		else if (cmd.equalsIgnoreCase("Q"))
-		{
-			// Exit message that Server is shut down
-			System.out.println("Server is shut down");
-		}
-		System.out.println("--------------------------");
-
-		server.cleanup();
-
-
-	}
-
-	/**
 	 * Main method to display welcome message and get all the code load r
 	 * 
 	 * @param args this is automatic JAVA generation
@@ -218,22 +182,14 @@ public class StoreFront
 		StoreFront store = new StoreFront();
 		inventory = new Inventory();
 		inventory.initialize(); // initialize list of Salable Product in Inventory list
-		cart.initialize(); // initialize list of Salable Product in Inventory list
-		boolean isAdmin = true;
-		while (isAdmin == true)
-		{
-			System.out.println("Make any change as Admin? (Y/N)");
-			String input = scan.nextLine();
-			if (input.equalsIgnoreCase("Y"))
-			{
-				manageByAd();
-				isAdmin = true;
-			}
-			else if (input.equalsIgnoreCase("N"))
-			{
-				isAdmin = false;
-			}
-		}
+		
+		//----------------------------------
+		// RUNNING THE ADMIN APP
+		// Create a server thread instance and start it
+		Thread thread = new ServerThread();
+		thread.start();
+		//----------------------------------
+
 		System.out.println("--------------------------------------------");
 		System.out.println("----------- WELCOME TO UWU STORE -----------");
 		System.out.println("---In here you can find all what you need---");

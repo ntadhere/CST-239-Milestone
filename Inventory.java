@@ -17,15 +17,14 @@ import exception.CustomException;
 public class Inventory implements Cloneable
 {
 	 
-	FileService file;
+	FileService file = new FileService();
 	List<Product> inventory;
 	
 	/**
 	 * default constructor of inventory class
 	 * @throws CustomException is a custom exception
 	 */
-	public Inventory() throws CustomException {
-		file = new FileService();
+	public Inventory(){
 		inventory = initialize();
 	}
 
@@ -34,6 +33,7 @@ public class Inventory implements Cloneable
 	 * strengthen its accessibility
 	 * 
 	 * @return the clone object
+	 * @throws CloneNotSupportedException 
 	 */
 	@Override
 	protected Object clone() throws CloneNotSupportedException
@@ -48,10 +48,16 @@ public class Inventory implements Cloneable
 	 * @return the ArrayList of Product named inventory
 	 * @throws CustomException is a custom exception
 	 */
-	public List<Product> initialize() throws CustomException
+	public List<Product> initialize()
 	{
-
-		return file.useFile();
+		try
+		{
+			inventory = file.useFile(file.createList());
+		} catch (CustomException e)
+		{
+			e.getMessage("Can not initialize Inventory");
+		}
+		return inventory;
 	}
 
 	/**
@@ -155,6 +161,14 @@ public class Inventory implements Cloneable
 	 */
 	public List<Product> returnList()
 	{
+		try
+		{
+			inventory = file.useFile(inventory);
+		} catch (CustomException e)
+		{
+			// TODO Auto-generated catch block
+			e.getMessage("Can not return Inventory");
+		}
 		return inventory;
 	}
 	

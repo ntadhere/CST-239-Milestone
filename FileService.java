@@ -7,10 +7,16 @@
  */
 package server;
 
-import java.io.*;
-import java.util.*;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.PrintWriter;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import exception.CustomException;
@@ -21,6 +27,42 @@ import exception.CustomException;
  */
 public class FileService
 {
+	List<Product> inventory;
+	public List<Product> getInv()
+	{
+		return this.inventory;
+	}
+	public void setInv(List<Product> inventory)
+	{
+		this.inventory = inventory;
+	}
+	public List<Product> createList()
+	{
+		List<Product> inv = new ArrayList<Product>();
+		// create 2 Weapon objects
+				Product gun = new Weapon("gun", "100 Damage", 125.00, 25);
+				Product bomb = new Weapon("bomb", "150 Damage", 175.00, 25);
+				// create 2 Armor objects
+				Product shield1 = new Armor("shield", "900 Block", 500.00, 11);
+				Product shield = new Armor("shield", "900 Block", 450.00, 13);
+				Product helmet = new Armor("helmet", "250 Block", 100.00, 20);
+				// create 2 Health objects
+				Product food = new Health("food", "500 HP", 500.00, 15);
+				Product drink = new Health("drink", "300 HP", 150.00, 14);
+				// Create an initial inventory with products
+				inv.add(gun);
+				inv.add(bomb);
+				inv.add(shield1);
+				inv.add(shield);
+				inv.add(helmet);
+				inv.add(food);
+				inv.add(drink);
+
+				Collections.sort(inv);
+				setInv(inv);
+		return getInv();
+	}
+	
 	/**
 	 * saving method for array data which takes all parameters
 	 * 
@@ -28,8 +70,9 @@ public class FileService
 	 * @param inventory is an array of list of inventory product
 	 * @throws CustomException is a custom exception
 	 */
-	private void saveToFile(String filename, Product[] inventory) throws CustomException
+	public String saveToFile(String filename, Product[] inventory) throws CustomException
 	{
+		String json = null;
 		PrintWriter pw = null;
 		try
 		{
@@ -40,7 +83,7 @@ public class FileService
 
 			// Write Product as JSON
 			ObjectMapper objectMapper = new ObjectMapper();
-			String json = objectMapper.writeValueAsString(inventory);
+			json = objectMapper.writeValueAsString(inventory);
 			pw.println(json);
 
 		} 
@@ -52,6 +95,13 @@ public class FileService
 		{
 			pw.close();
 		}
+		return json;
+	}
+	public String listToJson(List<Product> inventory) throws JsonProcessingException, CustomException
+	{
+		ObjectMapper mapper = new ObjectMapper();
+        String json = mapper.writeValueAsString(inventory);
+        return json;
 	}
 
 	/**
@@ -61,7 +111,7 @@ public class FileService
 	 * @return the array of inventory's Product
 	 * @throws CustomException is a custom exception
 	 */
-	private Product[] readFromFile(String filename) throws CustomException
+	public Product[] readFromFile(String filename) throws CustomException
 	{
 		Product[] inventory = null;
 		try
@@ -85,38 +135,15 @@ public class FileService
 	 * @return the array list which is converted from array
 	 * @throws CustomException is a custom exception
 	 */
-	public List<Product> useFile() throws CustomException
+	public List<Product> useFile(List<Product> invList) throws CustomException
 	{
-		List<Product> inventory = new ArrayList<Product>();
-		// create 2 Weapon objects
-		Product gun = new Weapon("gun", "100 Damage", 125.00, 25);
-		Product bomb = new Weapon("bomb", "150 Damage", 175.00, 25);
-		// create 2 Armor objects
-		Product shield1 = new Armor("shield", "900 Block", 500.00, 11);
-		Product shield = new Armor("shield", "900 Block", 450.00, 13);
-		Product helmet = new Armor("helmet", "250 Block", 100.00, 20);
-		// create 2 Health objects
-		Product food = new Health("food", "500 HP", 500.00, 15);
-		Product drink = new Health("drink", "300 HP", 150.00, 14);
-
-		// Create an initial inventory with products
-		inventory.add(gun);
-		inventory.add(bomb);
-		inventory.add(shield1);
-		inventory.add(shield);
-		inventory.add(helmet);
-		inventory.add(food);
-		inventory.add(drink);
-
-		Collections.sort(inventory);
-
-		Product[] list = inventory.toArray(new Product[0]);
+		Product[] list = invList.toArray(new Product[0]);
 		// Read the product from the file and print.out
 		Product[] product = null;
 		try
 		{
 			// Write the inventory of product to a file as JSON
-			saveToFile("out.json", list);
+			String json = saveToFile("out.json", list);
 			product = readFromFile("out.json");
 		} catch (CustomException e)
 		{
@@ -134,12 +161,25 @@ public class FileService
 	 * @throws JsonProcessingException
 	 * @throws CustomException
 	 */
-	public String listToJson(List<Product> inventory) throws JsonProcessingException, CustomException
+	
+	
+	public Product[] jsonToArray(String json)
 	{
-		ObjectMapper mapper = new ObjectMapper();
-        String json = mapper.writeValueAsString(inventory);
-        return json;
+		 ObjectMapper mapper = new ObjectMapper();
+		 Product[] products = null;
+         try
+		{
+			products = mapper.readValue(json, Product[].class);
+		} catch (JsonMappingException e)
+		{
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (JsonProcessingException e)
+		{
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return products;
+
 	}
-	
-	
 }
