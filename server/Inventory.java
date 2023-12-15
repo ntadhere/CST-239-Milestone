@@ -161,14 +161,7 @@ public class Inventory implements Cloneable
 	 */
 	public List<Product> returnList()
 	{
-		try
-		{
-			inventory = file.useFile(inventory, "out.json");
-		} catch (CustomException e)
-		{
-			// TODO Auto-generated catch block
-			e.getMessage("Can not return Inventory");
-		}
+		inventory = new ArrayList<>(Arrays.asList(file.readFromFile("out.json")));
 		return inventory;
 	}
 	
