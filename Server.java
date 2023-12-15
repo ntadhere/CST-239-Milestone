@@ -15,6 +15,8 @@ import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import exception.CustomException;
@@ -65,24 +67,36 @@ public class Server
 				}
 				else if (inputLine.equalsIgnoreCase("R"))
 				{
-					// Echo an acknowledgement back to the Client that Command was processed successfully
-//					System.out.println("Got a message of: " + inputLine);
-					
-					try
-					{
-						out.println(file.saveToFile("admin.json", file.readFromFile("out.json")));
-					} catch (CustomException e)
-					{
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					}
+					out.println(file.saveToFile("admin.json", file.readFromFile("out.json")));
 
 					}
-				else if (inputLine.equalsIgnoreCase("U"))
+				else if (inputLine.split(" \\| ")[0].equalsIgnoreCase("U"))
 				{
-					// Echo an acknowledgement back to the Client that Command was processed successfully
-//					System.out.println("Got a message of: " + inputLine);
-					out.println("U");
+					Product item = null;
+					// Store updated Salable product to a separate string
+					String data = inputLine.split(" \\| ")[1];
+					// Split the string store data by "," to define the property of the Salable product
+					String[] property = data.split(",");
+					//---------------------------------------------------------
+					// CHECK THE TYPE OF SALABLE PRODUCT
+					//---------------------------------------------------------
+					if (property[0].equalsIgnoreCase("weapon"))
+					{
+						item = new Weapon(property[1].trim(),property[2].trim(),Double.parseDouble(property[3].trim()),Integer.parseInt(property[4].trim()));
+					}
+					else if (property[0].equalsIgnoreCase("armor"))
+					{
+						item = new Armor(property[1].trim(),property[2].trim(),Double.parseDouble(property[3].trim()),Integer.parseInt(property[4].trim()));
+					}
+					else if (property[0].equalsIgnoreCase("health"))
+					{
+						item = new Health(property[1].trim(),property[2].trim(),Double.parseDouble(property[3].trim()),Integer.parseInt(property[4].trim()));
+					}
+					//---------------------------------------------------------
+					List<Product> inventoryList = new ArrayList<>(Arrays.asList(file.readFromFile("out.json")));
+					inventoryList.add(item);
+					file.saveToFile("out.json",inventoryList.toArray(new Product[0]));
+					out.println("OK");
 				}
 			}
 		}

@@ -14,9 +14,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
-
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import exception.CustomException;
@@ -27,15 +24,6 @@ import exception.CustomException;
  */
 public class FileService
 {
-	List<Product> inventory;
-	public List<Product> getInv()
-	{
-		return this.inventory;
-	}
-	public void setInv(List<Product> inventory)
-	{
-		this.inventory = inventory;
-	}
 	public List<Product> createList()
 	{
 		List<Product> inv = new ArrayList<Product>();
@@ -59,8 +47,7 @@ public class FileService
 				inv.add(drink);
 
 				Collections.sort(inv);
-				setInv(inv);
-		return getInv();
+		return inv;
 	}
 	
 	/**
@@ -70,7 +57,7 @@ public class FileService
 	 * @param inventory is an array of list of inventory product
 	 * @throws CustomException is a custom exception
 	 */
-	public String saveToFile(String filename, Product[] inventory) throws CustomException
+	public String saveToFile(String filename, Product[] inventory)
 	{
 		String json = null;
 		PrintWriter pw = null;
@@ -89,7 +76,7 @@ public class FileService
 		} 
 		catch (Exception e)
 		{
-			throw new CustomException(e, "Something bad happened reading the file");
+			e.getMessage();
 		} 
 		finally
 		{
@@ -97,12 +84,7 @@ public class FileService
 		}
 		return json;
 	}
-	public String listToJson(List<Product> inventory) throws JsonProcessingException, CustomException
-	{
-		ObjectMapper mapper = new ObjectMapper();
-        String json = mapper.writeValueAsString(inventory);
-        return json;
-	}
+	
 
 	/**
 	 * reading method for array data which takes all parameters
@@ -111,7 +93,7 @@ public class FileService
 	 * @return the array of inventory's Product
 	 * @throws CustomException is a custom exception
 	 */
-	public Product[] readFromFile(String filename) throws CustomException
+	public Product[] readFromFile(String filename)
 	{
 		Product[] inventory = null;
 		try
@@ -121,7 +103,7 @@ public class FileService
 			inventory = objectMapper.readValue(new File(filename), Product[].class);
 		} catch (Exception e)
 		{
-			throw new CustomException(e, "Something bad happened reading the file");
+			e.getMessage();
 		} 
 
 		// Return the list of Cars
@@ -135,51 +117,15 @@ public class FileService
 	 * @return the array list which is converted from array
 	 * @throws CustomException is a custom exception
 	 */
-	public List<Product> useFile(List<Product> invList) throws CustomException
+	public List<Product> useFile(List<Product> invList, String filename) throws CustomException
 	{
 		Product[] list = invList.toArray(new Product[0]);
 		// Read the product from the file and print.out
 		Product[] product = null;
-		try
-		{
-			// Write the inventory of product to a file as JSON
-			String json = saveToFile("out.json", list);
-			product = readFromFile("out.json");
-		} catch (CustomException e)
-		{
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-			System.out.println("Application Error: " + e.getMessage());
-		}
+		// Write the inventory of product to a file as JSON
+		String json = saveToFile(filename, list);
+		product = readFromFile(filename);
 		List<Product> inventoryList = new ArrayList<>(Arrays.asList(product));
 		return inventoryList;
-	}
-	/**
-	 * Convert List Product to JSON string and return string
-	 * @param inventory is the List of Salable Product
-	 * @return JSON string
-	 * @throws JsonProcessingException
-	 * @throws CustomException
-	 */
-	
-	
-	public Product[] jsonToArray(String json)
-	{
-		 ObjectMapper mapper = new ObjectMapper();
-		 Product[] products = null;
-         try
-		{
-			products = mapper.readValue(json, Product[].class);
-		} catch (JsonMappingException e)
-		{
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (JsonProcessingException e)
-		{
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		return products;
-
 	}
 }

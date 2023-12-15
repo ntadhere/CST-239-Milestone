@@ -52,7 +52,7 @@ public class Inventory implements Cloneable
 	{
 		try
 		{
-			inventory = file.useFile(file.createList());
+			inventory = file.useFile(file.createList(), "json.json");
 		} catch (CustomException e)
 		{
 			e.getMessage("Can not initialize Inventory");
@@ -163,7 +163,7 @@ public class Inventory implements Cloneable
 	{
 		try
 		{
-			inventory = file.useFile(inventory);
+			inventory = file.useFile(inventory, "out.json");
 		} catch (CustomException e)
 		{
 			// TODO Auto-generated catch block
