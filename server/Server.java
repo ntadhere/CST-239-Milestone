@@ -19,7 +19,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import exception.CustomException;
 
 /**
  * Server class for Milestone 6

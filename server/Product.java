@@ -156,7 +156,7 @@ public abstract class Product implements Cloneable, Comparable<Product>
 	/**
 	 * this make a clonable of a chosen product
 	 */
-	protected Object clone() throws CloneNotSupportedException
+	public Object clone() throws CloneNotSupportedException
 	{
 		return super.clone();
 	}

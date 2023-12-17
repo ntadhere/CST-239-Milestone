@@ -123,9 +123,10 @@ public class FileService
 		// Read the product from the file and print.out
 		Product[] product = null;
 		// Write the inventory of product to a file as JSON
-		String json = saveToFile(filename, list);
+		saveToFile(filename, list);
 		product = readFromFile(filename);
 		List<Product> inventoryList = new ArrayList<>(Arrays.asList(product));
+		Collections.sort(inventoryList);
 		return inventoryList;
 	}
 }

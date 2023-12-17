@@ -16,15 +16,15 @@ import exception.CustomException;
  */
 public class Inventory implements Cloneable
 {
-	 
+
 	FileService file = new FileService();
-	List<Product> inventory;
-	
+	List<Product> inventory = returnList();
+
 	/**
 	 * default constructor of inventory class
-	 * @throws CustomException is a custom exception
 	 */
-	public Inventory(){
+	public Inventory()
+	{
 		inventory = initialize();
 	}
 
@@ -33,7 +33,7 @@ public class Inventory implements Cloneable
 	 * strengthen its accessibility
 	 * 
 	 * @return the clone object
-	 * @throws CloneNotSupportedException 
+	 * @throws CloneNotSupportedException
 	 */
 	@Override
 	protected Object clone() throws CloneNotSupportedException
@@ -44,15 +44,13 @@ public class Inventory implements Cloneable
 	/**
 	 * this is a non-default constructor use to initialize the inventory declare and
 	 * initialize list of available Salable Product list is sort by name and price
-	 * 
 	 * @return the ArrayList of Product named inventory
-	 * @throws CustomException is a custom exception
 	 */
 	public List<Product> initialize()
 	{
 		try
 		{
-			inventory = file.useFile(file.createList(), "json.json");
+			inventory = file.useFile(file.createList(), "out.json");
 		} catch (CustomException e)
 		{
 			e.getMessage("Can not initialize Inventory");
@@ -62,13 +60,16 @@ public class Inventory implements Cloneable
 
 	/**
 	 * This is determine the getProduct method of Inventory
+	 * 
 	 * @param name is a name of product
 	 * @param qty  is a quantity of chosen product
 	 * @return temp is a clone product
-	 * @throws CloneNotSupportedException throw this exception to indicate that an object could not or should not be cloned.
+	 * @throws CloneNotSupportedException throw this exception to indicate that an
+	 *                                    object could not or should not be cloned.
 	 */
 	public Product getProduct(String name, int qty) throws CloneNotSupportedException
 	{
+		returnList();
 		boolean hasError = false;
 		boolean found = false;
 		Product temp = null;
@@ -117,6 +118,13 @@ public class Inventory implements Cloneable
 		{
 			System.out.println("ERROR: PRODUCT IS NOT FOUND");
 		}
+		try
+		{
+			file.useFile(inventory, "out.json");
+		} catch (CustomException e)
+		{
+			e.getMessage("Error when get Product from Inventory");
+		}
 		return temp;
 	}
 
@@ -128,7 +136,7 @@ public class Inventory implements Cloneable
 	 */
 	public Product addProduct(Product another)
 	{
-
+		returnList();
 		// read through the inventory ArrayList
 		int item = 0;
 		while (item < inventory.size())
@@ -141,7 +149,7 @@ public class Inventory implements Cloneable
 				// if it is matched
 				// add the desired Salable Product back to inventory
 				// by adjust the quantity of that Salable Product
-				inventory.get(item).setQuantity(inventory.get(item).getQuantity() + another.getQuantity());
+				returnList().get(item).setQuantity(inventory.get(item).getQuantity() + another.getQuantity());
 				item += inventory.size();
 			}
 
@@ -152,27 +160,25 @@ public class Inventory implements Cloneable
 				item += 1;
 			}
 		}
+		try
+		{
+			file.useFile(inventory, "out.json");
+		} catch (CustomException e)
+		{
+			e.getMessage("Error when add Product to Inventory");
+		}
 		return another;
 	}
 
 	/**
-	 * This is determined as returning method for inventory ArrayList
+	 * This is determined as returning method for inventory ArrayList the array list
+	 * is converted from Product array which is read from Json file
+	 * 
 	 * @return the inventory ArrayList
 	 */
 	public List<Product> returnList()
 	{
 		inventory = new ArrayList<>(Arrays.asList(file.readFromFile("out.json")));
-		return inventory;
-	}
-	
-	/**
-	 * This is determined an updated list with new Product added
-	 * @param another Product object
-	 * @return a new updated list
-	 */
-	public List<Product> addNewProduct(Product another)
-	{
-		inventory.add(another);
 		return inventory;
 	}
 

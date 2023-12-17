@@ -8,7 +8,8 @@
 package server;
 
 import java.io.IOException;
-import java.util.*;
+import java.util.Scanner;
+
 import exception.CustomException;
 
 /**
@@ -24,66 +25,33 @@ public class StoreFront
 	static ShoppingCart cart = new ShoppingCart();
 
 	/**
-	 * this is a non-default constructor support purchase action Method take user
-	 * input name and quantity then remove Product from Inventory to add to
-	 * ShoppingCart
+	 * Main method to display welcome message and get all the code load r
 	 * 
+	 * @param args this is automatic JAVA generation
 	 * @throws CloneNotSupportedException throw this exception to indicate that an
 	 *                                    object could not or should not be cloned.
-	 */
-	public static void purchase() throws CloneNotSupportedException
-	{
-		// take user input
-		Product temp = null;
-		while (temp == null)
-		{
-			System.out.println("------------------------------------------------------------");
-			System.out.println("Which item do you want to purchase?");
-			String name = item.nextLine();
-			System.out.println("How many item do you want to purchase?");
-			int qty = scan.nextInt();
-
-			// sort and take the product out of the inventory
-			temp = inventory.getProduct(name, qty);
-		}
-
-		// add the product to shopping cart
-		cart.addProduct(temp);
-		System.out.println("You successfully purchase the item to your Shopping Cart");
-		System.out.println("------------------------------------------------------------");
-		System.out.println("--------------RETURN BACK TO THE STORE FRONT------------------");
-		System.out.println("------------------------------------------------------------");
-
-	}
-
-	/**
-	 * this is a non-default constructor support cancel action Method take user
-	 * input name and quantity then remove Product from ShoppingCart to add back to
-	 * Inventory
+	 * @throws CustomException            is a custom exception
+	 * @throws IOException
 	 * 
-	 * @throws CloneNotSupportedException throw this exception to indicate that an
-	 *                                    object could not or should not be cloned.
 	 */
-	public static void cancel() throws CloneNotSupportedException
+	public static void main(String[] args)
 	{
-		// take user input
-		Product temp = null;
-		while (temp == null)
-		{
-			System.out.println("Which item do you want to cancel?");
-			String name = item.nextLine();
-			System.out.println("How many item do you want to cancel?");
-			int qty = scan.nextInt();
-			// sort and take the product from the ShoppingCart
-			temp = cart.getProduct(name, qty);
-		}
-		// add the product back to Inventory
-		inventory.addProduct(temp);
-		System.out.println("You successfully cancel the item from your Shopping Cart");
-		System.out.println("------------------------------------------------------------");
-		System.out.println("--------------RETURN BACK TO THE STORE FRONT------------------");
-		System.out.println("------------------------------------------------------------");
+		StoreFront store = new StoreFront();
+		inventory = new Inventory();
+		inventory.initialize(); // initialize list of Salable Product in Inventory list
 
+		// ----------------------------------
+		// RUNNING THE ADMIN APP
+		// Create a server thread instance and start it
+		Thread thread = new ServerThread();
+		thread.start();
+		// ----------------------------------
+
+		System.out.println("--------------------------------------------");
+		System.out.println("----------- WELCOME TO UWU STORE -----------");
+		System.out.println("---In here you can find all what you need---");
+		System.out.println("--------------------------------------------");
+		store.showMenu();
 	}
 
 	/**
@@ -93,7 +61,7 @@ public class StoreFront
 	 * @throws CloneNotSupportedException throw this exception to indicate that an
 	 *                                    object could not or should not be cloned.
 	 */
-	private void showMenu() throws CloneNotSupportedException
+	public void showMenu()
 	{
 		boolean exit = false;
 		while (exit != true)
@@ -168,32 +136,77 @@ public class StoreFront
 	}
 
 	/**
-	 * Main method to display welcome message and get all the code load r
+	 * this is a non-default constructor support purchase action Method take user
+	 * input name and quantity then remove Product from Inventory to add to
+	 * ShoppingCart
 	 * 
-	 * @param args this is automatic JAVA generation
 	 * @throws CloneNotSupportedException throw this exception to indicate that an
 	 *                                    object could not or should not be cloned.
-	 * @throws CustomException            is a custom exception
-	 * @throws IOException
-	 * 
 	 */
-	public static void main(String[] args) throws CloneNotSupportedException, CustomException, IOException
+	public static void purchase()
 	{
-		StoreFront store = new StoreFront();
-		inventory = new Inventory();
-		inventory.initialize(); // initialize list of Salable Product in Inventory list
-		
-		//----------------------------------
-		// RUNNING THE ADMIN APP
-		// Create a server thread instance and start it
-		Thread thread = new ServerThread();
-		thread.start();
-		//----------------------------------
+		// take user input
+		Product temp = null;
+		while (temp == null)
+		{
+			System.out.println("------------------------------------------------------------");
+			System.out.println("Which item do you want to purchase?");
+			String name = item.nextLine();
+			System.out.println("How many item do you want to purchase?");
+			int qty = scan.nextInt();
 
-		System.out.println("--------------------------------------------");
-		System.out.println("----------- WELCOME TO UWU STORE -----------");
-		System.out.println("---In here you can find all what you need---");
-		System.out.println("--------------------------------------------");
-		store.showMenu();
+			// sort and take the product out of the inventory
+			try
+			{
+				temp = inventory.getProduct(name, qty);
+			} catch (CloneNotSupportedException e)
+			{
+				e.getMessage();
+			}
+		}
+
+		// add the product to shopping cart
+		cart.addProduct(temp);
+		System.out.println("You successfully purchase the item to your Shopping Cart");
+		System.out.println("------------------------------------------------------------");
+		System.out.println("--------------RETURN BACK TO THE STORE FRONT------------------");
+		System.out.println("------------------------------------------------------------");
+
+	}
+
+	/**
+	 * this is a non-default constructor support cancel action Method take user
+	 * input name and quantity then remove Product from ShoppingCart to add back to
+	 * Inventory
+	 * 
+	 * @throws CloneNotSupportedException throw this exception to indicate that an
+	 *                                    object could not or should not be cloned.
+	 */
+	public static void cancel()
+	{
+		// take user input
+		Product temp = null;
+		while (temp == null)
+		{
+			System.out.println("Which item do you want to cancel?");
+			String name = item.nextLine();
+			System.out.println("How many item do you want to cancel?");
+			int qty = scan.nextInt();
+			// sort and take the product from the ShoppingCart
+			try
+			{
+				temp = cart.getProduct(name, qty);
+			} catch (CloneNotSupportedException e)
+			{
+				e.getMessage();
+			}
+		}
+		// add the product back to Inventory
+		inventory.addProduct(temp);
+		System.out.println("You successfully cancel the item from your Shopping Cart");
+		System.out.println("------------------------------------------------------------");
+		System.out.println("--------------RETURN BACK TO THE STORE FRONT------------------");
+		System.out.println("------------------------------------------------------------");
+
 	}
 }
