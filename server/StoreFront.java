@@ -143,7 +143,7 @@ public class StoreFront
 	 * @throws CloneNotSupportedException throw this exception to indicate that an
 	 *                                    object could not or should not be cloned.
 	 */
-	public static void purchase()
+	public void purchase()
 	{
 		// take user input
 		Product temp = null;
@@ -182,7 +182,7 @@ public class StoreFront
 	 * @throws CloneNotSupportedException throw this exception to indicate that an
 	 *                                    object could not or should not be cloned.
 	 */
-	public static void cancel()
+	public void cancel()
 	{
 		// take user input
 		Product temp = null;
